@@ -20,7 +20,11 @@ type NavItem = {
 }
 
 // Enlaces de navegación; se ampliarán en las siguientes iteraciones
-const navItems: NavItem[] = [{ label: 'Home', to: routes.home, testId: 'nav-home' }]
+const navItems: NavItem[] = [
+  { label: 'Home', to: routes.home, testId: 'nav-home' },
+  { label: 'Sign in', to: routes.login, testId: 'nav-login' },
+  { label: 'Sign up', to: routes.register, testId: 'nav-register' },
+]
 
 // Clases del enlace: NavLink agrega aria-current="page" al enlace activo
 const linkClass = ({ isActive }: { isActive: boolean }) =>

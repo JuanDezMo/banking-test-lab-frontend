@@ -39,19 +39,19 @@ Nueve iteraciones cortas; cada una termina con una entrega funcional que el usua
 
 ## Iteración 1: registro y login
 
-- [ ] `lib/http/httpClient.ts`: función `request<T>()` sobre `fetch` con base `/api`, JSON, query params y manejo de 204
-- [ ] `lib/http/ApiError.ts`: clase con `status`, `code`, `message` y `retryAfter`
-- [ ] `lib/errors.ts`: mapa de `message` del backend a campo de formulario (`Invalid email` → `email`)
-- [ ] `features/auth/types.ts`: `User`, `TokenPair`, `AuthRepository`
-- [ ] `features/auth/schemas.ts`: Zod con las reglas I-05 (name 1–100, email, password 8–128)
-- [ ] `features/auth/api/authApi.ts`: `register`, `login`
-- [ ] `features/auth/services/authService.ts`
-- [ ] Hooks `useRegister` y `useLogin` con `useMutation`
-- [ ] `RegisterForm` y `LoginForm` con errores por campo (`aria-invalid`, `aria-describedby`) y alerta general
-- [ ] Manejo de 429: alerta con cuenta regresiva desde `Retry-After` y botón deshabilitado
-- [ ] Páginas `/register` y `/login`; registro exitoso redirige a login con toast
-- [ ] `components/shared/ErrorAlert.tsx` con `role="alert"`
-- [ ] Pruebas: `httpClient`, `ApiError`, `errors.ts`, esquemas Zod
+- [x] `lib/http/httpClient.ts`: función `request<T>()` sobre `fetch` con base `/api`, JSON, query params y manejo de 204
+- [x] `lib/http/ApiError.ts`: clase con `status`, `code`, `message` y `retryAfter`
+- [x] `lib/errors.ts`: mapa de `message` del backend a campo de formulario (`Invalid email` → `email`)
+- [x] `features/auth/types.ts`: `User`, `TokenPair`, `AuthRepository`
+- [x] `features/auth/schemas.ts`: Zod con las reglas I-05 (name 1–100, email, password 8–128)
+- [x] `features/auth/api/authApi.ts`: `register`, `login`
+- [x] `features/auth/services/authService.ts`
+- [x] Hooks `useRegister` y `useLogin` con `useMutation`
+- [x] `RegisterForm` y `LoginForm` con errores por campo (`aria-invalid`, `aria-describedby`) y alerta general
+- [x] Manejo de 429: alerta con cuenta regresiva desde `Retry-After` y botón deshabilitado
+- [x] Páginas `/register` y `/login`; registro exitoso redirige a login con toast
+- [x] `components/shared/ErrorAlert.tsx` con `role="alert"`
+- [x] Pruebas: `httpClient`, `ApiError`, `errors.ts`, esquemas Zod
 
 **Terminado cuando:** se ven todos los errores de F-01 y F-02 (400, 401, 409, 429) y un login exitoso devuelve tokens (aún sin guardarlos).
 

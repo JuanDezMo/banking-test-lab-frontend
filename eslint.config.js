@@ -82,6 +82,14 @@ export default tseslint.config(
     },
   },
   {
+    // Las pruebas pueden importar cualquier capa (y las utilidades de src/test)
+    files: ['src/**/*.test.{ts,tsx}', 'src/test/**/*.{ts,tsx}'],
+    rules: {
+      'boundaries/dependencies': 'off',
+      'react-refresh/only-export-components': 'off',
+    },
+  },
+  {
     // Componentes generados por shadcn: se permiten exports adicionales (variants)
     files: ['src/components/ui/**/*.tsx'],
     rules: { 'react-refresh/only-export-components': 'off' },
