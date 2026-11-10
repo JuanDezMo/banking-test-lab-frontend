@@ -3,6 +3,7 @@ import { useState, type ReactNode } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { ErrorAlert } from '@/components/shared/ErrorAlert'
+import { RadioCard } from '@/components/shared/RadioCard'
 import { SubmitButton } from '@/components/shared/SubmitButton'
 import {
   Dialog,
@@ -13,11 +14,10 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { FieldError } from '@/components/ui/field'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { RadioGroup } from '@/components/ui/radio-group'
 import { limits } from '@/config/limits'
 import { getErrorMessage } from '@/lib/errors'
 import { formatCents } from '@/lib/money'
-import { cn } from '@/lib/utils'
 import { useCreateAccount } from '../hooks/useAccounts'
 import { createAccountSchema, type CreateAccountFormValues } from '../schemas'
 import { accountTypeLabels, type Account, type AccountType } from '../types'
@@ -105,27 +105,15 @@ export function CreateAccountDialog({ trigger, onCreated }: CreateAccountDialogP
                   className="gap-3"
                 >
                   {options.map((option) => (
-                    <label
+                    <RadioCard
                       key={option.value}
-                      htmlFor={`account-type-${option.value}`}
-                      className={cn(
-                        'account-type-option flex cursor-pointer items-start gap-3 rounded-2xl border p-4 transition-colors',
-                        field.value === option.value
-                          ? 'border-brand bg-accent'
-                          : 'border-border hover:bg-muted',
-                      )}
-                      data-testid={`account-type-option-${option.value}`}
-                    >
-                      <RadioGroupItem
-                        id={`account-type-${option.value}`}
-                        value={option.value}
-                        className="mt-0.5"
-                      />
-                      <span>
-                        <span className="block font-bold">{accountTypeLabels[option.value]}</span>
-                        <span className="block text-muted-foreground">{option.description}</span>
-                      </span>
-                    </label>
+                      id={`account-type-${option.value}`}
+                      value={option.value}
+                      label={accountTypeLabels[option.value]}
+                      description={option.description}
+                      checked={field.value === option.value}
+                      testId={`account-type-option-${option.value}`}
+                    />
                   ))}
                 </RadioGroup>
               )}

@@ -59,10 +59,14 @@ async function toApiError(response: Response): Promise<ApiError> {
       retryAfter,
     })
   }
+  // Respuesta sin el formato de la API (por ejemplo, el proxy devuelve 502 si la API está caída)
   return new ApiError({
     status: response.status,
     code: 'UNKNOWN_ERROR',
-    message: 'Unexpected error',
+    message:
+      response.status >= 500
+        ? 'The server is not available right now. Please try again in a moment.'
+        : 'Unexpected error',
     retryAfter,
   })
 }

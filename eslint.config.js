@@ -44,10 +44,38 @@ const allowed = {
   test: ['test', 'lib'],
 }
 
-const policies = Object.entries(allowed).map(([from, to]) => ({
-  from: { element: { type: from } },
-  allow: { to: { element: { types: [...to, ...crossCutting] } } },
-}))
+// Las capas de una feature solo pueden importar capas de su MISMA feature.
+// De otra feature solo se permite el dominio (types.ts, balance.ts...): tipos y reglas puras.
+const featureLayers = ['feature-components', 'feature-hooks', 'feature-services', 'feature-api']
+const sameFeature = { feature: '{{ from.element.captured.feature }}' }
+
+const policies = Object.entries(allowed).flatMap(([from, to]) => {
+  // app y pages componen features: pueden usar cualquiera. La regla aplica entre features.
+  if (!featureLayers.includes(from)) {
+    return [
+      {
+        from: { element: { type: from } },
+        allow: { to: { element: { types: [...to, ...crossCutting] } } },
+      },
+    ]
+  }
+  const own = to.filter((type) => featureLayers.includes(type))
+  const shared = to.filter((type) => !featureLayers.includes(type))
+  return [
+    {
+      from: { element: { type: from } },
+      allow: { to: { element: { types: [...shared, ...crossCutting] } } },
+    },
+    ...(own.length > 0
+      ? [
+          {
+            from: { element: { type: from } },
+            allow: { to: { element: { types: own, captured: sameFeature } } },
+          },
+        ]
+      : []),
+  ]
+})
 
 export default tseslint.config(
   { ignores: ['dist', 'coverage', 'src/lib/api-types.ts'] },

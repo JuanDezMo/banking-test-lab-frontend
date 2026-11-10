@@ -1,8 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRef } from 'react'
-import { accountKeys } from '@/features/accounts/hooks/useAccounts'
-import { movementKeys } from '@/features/movements/hooks/useMovements'
 import type { ApiError } from '@/lib/http/ApiError'
+import { queryKeys } from '@/lib/queryKeys'
 import { newIdempotencyKey } from '@/lib/idempotency'
 import type { RechargeFormValues } from '../schemas'
 import { rechargeService, requestFingerprint, toRechargeRequest } from '../services/rechargeService'
@@ -30,8 +29,8 @@ export function useRecharge() {
       // Operación terminada: la próxima recarga es una operación nueva
       lastAttempt.current = null
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: accountKeys.all }),
-        queryClient.invalidateQueries({ queryKey: movementKeys.all }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.accounts.all }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.movements.all }),
       ])
     },
   })

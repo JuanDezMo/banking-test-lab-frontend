@@ -5,12 +5,14 @@ import { Controller, useForm, useWatch } from 'react-hook-form'
 import { Link } from 'react-router'
 import { toast } from 'sonner'
 import { ErrorAlert } from '@/components/shared/ErrorAlert'
+import { AmountInput } from '@/components/shared/AmountInput'
 import { MoneyText } from '@/components/shared/MoneyText'
+import { RadioCard } from '@/components/shared/RadioCard'
 import { SubmitButton } from '@/components/shared/SubmitButton'
 import { Button } from '@/components/ui/button'
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { RadioGroup } from '@/components/ui/radio-group'
 import { limits } from '@/config/limits'
 import { operatorAccountPath } from '@/config/routes'
 import { formatDateTime } from '@/lib/date'
@@ -176,25 +178,15 @@ export function RechargeForm() {
                 aria-invalid={!!errors.rechargeType}
               >
                 {rechargeTypeOptions.map((option) => (
-                  <label
+                  <RadioCard
                     key={option.value}
-                    htmlFor={`recharge-type-${option.value}`}
-                    className={cn(
-                      'recharge-type-option flex cursor-pointer items-start gap-3 rounded-2xl border p-4 transition-colors',
-                      field.value === option.value ? 'border-brand bg-accent' : 'hover:bg-muted',
-                    )}
-                    data-testid={`recharge-type-option-${option.value}`}
-                  >
-                    <RadioGroupItem
-                      id={`recharge-type-${option.value}`}
-                      value={option.value}
-                      className="mt-0.5"
-                    />
-                    <span>
-                      <span className="block font-bold">{option.label}</span>
-                      <span className="block text-sm text-muted-foreground">{option.hint}</span>
-                    </span>
-                  </label>
+                    id={`recharge-type-${option.value}`}
+                    value={option.value}
+                    label={option.label}
+                    description={option.hint}
+                    checked={field.value === option.value}
+                    testId={`recharge-type-option-${option.value}`}
+                  />
                 ))}
               </RadioGroup>
             )}
@@ -204,25 +196,13 @@ export function RechargeForm() {
 
         <Field data-invalid={!!errors.amount}>
           <FieldLabel htmlFor="recharge-amount">Amount</FieldLabel>
-          <div className="relative">
-            <span
-              className="pointer-events-none absolute top-1/2 left-3.5 -translate-y-1/2 font-bold text-muted-foreground"
-              aria-hidden="true"
-            >
-              $
-            </span>
-            <Input
-              id="recharge-amount"
-              inputMode="decimal"
-              autoComplete="off"
-              placeholder="0.00"
-              className="pl-7 text-lg font-bold tabular-nums"
-              aria-invalid={!!errors.amount}
-              aria-describedby={errors.amount ? 'recharge-amount-error' : 'recharge-amount-hint'}
-              data-testid="recharge-amount-input"
-              {...register('amount')}
-            />
-          </div>
+          <AmountInput
+            id="recharge-amount"
+            aria-invalid={!!errors.amount}
+            aria-describedby={errors.amount ? 'recharge-amount-error' : 'recharge-amount-hint'}
+            data-testid="recharge-amount-input"
+            {...register('amount')}
+          />
           {errors.amount ? (
             <FieldError id="recharge-amount-error" errors={[errors.amount]} />
           ) : (

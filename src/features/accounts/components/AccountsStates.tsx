@@ -36,7 +36,7 @@ export function AccountsError({ error, onRetry }: AccountsErrorProps) {
       </ErrorAlert>
       <Button
         variant="outline"
-        className="self-start"
+        className="justify-self-start"
         onClick={onRetry}
         data-testid="accounts-retry-button"
       >

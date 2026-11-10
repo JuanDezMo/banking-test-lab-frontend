@@ -159,7 +159,7 @@ La comunicación baja por llamadas a funciones y sube por valores de retorno o e
 | I — Segregación de interfaces | Interfaces pequeñas por dominio (`AuthRepository`, `AccountRepository`, `TransferRepository`), no un `ApiService` gigante                                                  |
 | D — Inversión de dependencias | Los servicios reciben el repositorio por parámetro (`createAccountService(repo)`); la composición concreta se hace en un solo lugar por feature                            |
 
-**Escalabilidad:** las features no se importan entre sí; lo compartido sube a `components/shared` o `lib`. Una feature nueva repite la misma estructura de carpetas.
+**Escalabilidad:** las capas de una feature (components, hooks, services, api) no importan las de otra feature; solo pueden usar su dominio (`types.ts`, `balance.ts`...). Lo compartido sube a `components/shared` (por ejemplo `EmptyState`, `AmountInput`, `RadioCard`, `BackLink`) o a `lib` (por ejemplo `queryKeys.ts`, `validation.ts`, `idempotency.ts`). La regla la verifica `eslint-plugin-boundaries`. Una feature nueva repite la misma estructura de carpetas.
 
 ## Convenciones
 

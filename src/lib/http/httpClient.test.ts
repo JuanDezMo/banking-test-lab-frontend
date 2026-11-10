@@ -62,7 +62,11 @@ describe('httpClient', () => {
 
     const error = await httpClient.get('/accounts').catch((e: unknown) => e)
 
-    expect(error).toMatchObject({ status: 502, code: 'UNKNOWN_ERROR' })
+    expect(error).toMatchObject({
+      status: 502,
+      code: 'UNKNOWN_ERROR',
+      message: 'The server is not available right now. Please try again in a moment.',
+    })
   })
 
   it('maps a network failure to NETWORK_ERROR', async () => {

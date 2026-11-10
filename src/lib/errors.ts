@@ -30,3 +30,12 @@ export function getErrorMessage(error: unknown): string {
   if (isApiError(error)) return error.message
   return 'Something went wrong. Please try again.'
 }
+
+// Errores que no dependen del usuario: el servidor falló (5xx) o no hubo conexión.
+// Se avisan con un toast global además del mensaje de cada vista.
+export function getGlobalErrorMessage(error: unknown): string | null {
+  if (!isApiError(error)) return null
+  if (error.code === 'NETWORK_ERROR') return 'Unable to reach the server. Check your connection.'
+  if (error.status >= 500) return 'The bank is having trouble right now. Please try again.'
+  return null
+}

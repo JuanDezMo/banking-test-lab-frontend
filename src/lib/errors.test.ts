@@ -1,4 +1,4 @@
-import { getErrorMessage, getFieldError } from './errors'
+import { getErrorMessage, getFieldError, getGlobalErrorMessage } from './errors'
 import { ApiError } from './http/ApiError'
 
 const badRequest = (message: string) => new ApiError({ status: 400, code: 'BAD_REQUEST', message })
@@ -35,5 +35,27 @@ describe('getErrorMessage', () => {
 
   it('uses a generic message for unknown errors', () => {
     expect(getErrorMessage(new Error('boom'))).toBe('Something went wrong. Please try again.')
+  })
+})
+
+describe('getGlobalErrorMessage', () => {
+  it('returns a message for server and network errors', () => {
+    expect(
+      getGlobalErrorMessage(
+        new ApiError({ status: 500, code: 'INTERNAL_ERROR', message: 'Internal error' }),
+      ),
+    ).toMatch(/trouble/)
+    expect(
+      getGlobalErrorMessage(new ApiError({ status: 0, code: 'NETWORK_ERROR', message: 'x' })),
+    ).toMatch(/connection/)
+  })
+
+  it('ignores business and validation errors', () => {
+    expect(
+      getGlobalErrorMessage(
+        new ApiError({ status: 422, code: 'INSUFFICIENT_FUNDS', message: 'Insufficient funds' }),
+      ),
+    ).toBeNull()
+    expect(getGlobalErrorMessage(badRequest('Invalid email'))).toBeNull()
   })
 })

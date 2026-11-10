@@ -1,5 +1,8 @@
 import { Link } from 'react-router'
-import { Skeleton } from '@/components/ui/skeleton'
+import { ReceiptTextIcon } from 'lucide-react'
+import { EmptyState } from '@/components/shared/EmptyState'
+import { ErrorAlert } from '@/components/shared/ErrorAlert'
+import { ListSkeleton } from '@/components/shared/ListSkeleton'
 import { accountPath } from '@/config/routes'
 import { getErrorMessage } from '@/lib/errors'
 import { useMovements } from '../hooks/useMovements'
@@ -36,12 +39,26 @@ export function RecentMovements({ accountId, lookup, limit = 5 }: RecentMovement
         </Link>
       </div>
 
-      {isPending && <Skeleton className="mt-4 h-40 rounded-2xl" />}
-      {isError && <p className="mt-4 text-sm text-destructive">{getErrorMessage(error)}</p>}
+      {isPending && (
+        <ListSkeleton rows={3} label="Loading recent movements" testId="recent-movements-loading" />
+      )}
+      {isError && (
+        <ErrorAlert
+          title="We could not load the movements"
+          className="mt-4"
+          testId="recent-movements-error-alert"
+        >
+          {getErrorMessage(error)}
+        </ErrorAlert>
+      )}
       {data && items.length === 0 && (
-        <p className="mt-4 text-sm text-muted-foreground" data-testid="recent-movements-empty">
-          No movements yet on this account.
-        </p>
+        <EmptyState
+          compact
+          icon={ReceiptTextIcon}
+          title="No movements yet"
+          description="Recharges and transfers on this account will appear here."
+          testId="recent-movements-empty"
+        />
       )}
       {items.length > 0 && <MovementList movements={items} lookup={lookup} />}
     </section>

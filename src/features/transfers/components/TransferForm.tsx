@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { Controller, useForm, useWatch } from 'react-hook-form'
+import { AmountInput } from '@/components/shared/AmountInput'
 import { MoneyText } from '@/components/shared/MoneyText'
 import { SubmitButton } from '@/components/shared/SubmitButton'
 import { VirtualCard } from '@/components/shared/VirtualCard'
@@ -195,25 +196,13 @@ export function TransferForm({ accounts, defaultOriginNumber, onSuccess }: Trans
 
           <Field data-invalid={!!errors.amount}>
             <FieldLabel htmlFor="transfer-amount">Amount</FieldLabel>
-            <div className="relative">
-              <span
-                className="pointer-events-none absolute top-1/2 left-3.5 -translate-y-1/2 font-bold text-muted-foreground"
-                aria-hidden="true"
-              >
-                $
-              </span>
-              <Input
-                id="transfer-amount"
-                inputMode="decimal"
-                autoComplete="off"
-                placeholder="0.00"
-                className="pl-7 text-lg font-bold tabular-nums"
-                aria-invalid={!!errors.amount}
-                aria-describedby={errors.amount ? 'transfer-amount-error' : undefined}
-                data-testid="transfer-amount-input"
-                {...register('amount')}
-              />
-            </div>
+            <AmountInput
+              id="transfer-amount"
+              aria-invalid={!!errors.amount}
+              aria-describedby={errors.amount ? 'transfer-amount-error' : undefined}
+              data-testid="transfer-amount-input"
+              {...register('amount')}
+            />
             <FieldError id="transfer-amount-error" errors={[errors.amount]} />
           </Field>
 

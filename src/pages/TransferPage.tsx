@@ -1,6 +1,6 @@
-import { ArrowLeftIcon } from 'lucide-react'
-import { Link, useNavigate, useSearchParams } from 'react-router'
+import { useNavigate, useSearchParams } from 'react-router'
 import { toast } from 'sonner'
+import { BackLink } from '@/components/shared/BackLink'
 import { Skeleton } from '@/components/ui/skeleton'
 import { accountPath, routes } from '@/config/routes'
 import { AccountsEmpty, AccountsError } from '@/features/accounts/components/AccountsStates'
@@ -25,14 +25,7 @@ export function TransferPage() {
 
   return (
     <div className="transfer-page grid gap-6" data-testid="transfer-page">
-      <Link
-        to={routes.accounts}
-        className="inline-flex items-center gap-2 justify-self-start rounded-full px-1 font-bold text-muted-foreground hover:text-foreground"
-        data-testid="back-to-accounts-link"
-      >
-        <ArrowLeftIcon className="size-4" aria-hidden="true" />
-        Back to accounts
-      </Link>
+      <BackLink to={routes.accounts} label="Back to accounts" testId="back-to-accounts-link" />
       <header>
         <h1 className="text-3xl font-extrabold tracking-tight">New transfer</h1>
         <p className="mt-1 text-muted-foreground">Send money from one of your accounts.</p>

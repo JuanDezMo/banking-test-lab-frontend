@@ -1,8 +1,9 @@
 import { ReceiptTextIcon, RotateCwIcon } from 'lucide-react'
+import { EmptyState } from '@/components/shared/EmptyState'
 import { ErrorAlert } from '@/components/shared/ErrorAlert'
+import { ListSkeleton } from '@/components/shared/ListSkeleton'
 import { Pagination } from '@/components/shared/Pagination'
 import { Button } from '@/components/ui/button'
-import { Skeleton } from '@/components/ui/skeleton'
 import { limits } from '@/config/limits'
 import { getErrorMessage } from '@/lib/errors'
 import { useMovements } from '../hooks/useMovements'
@@ -50,17 +51,7 @@ export function MovementsSection({ accountId, page, onPageChange, lookup }: Move
         )}
       </div>
 
-      {isPending && (
-        <div
-          className="mt-4 grid gap-3"
-          aria-label="Loading movements"
-          data-testid="movements-loading"
-        >
-          {[0, 1, 2, 3].map((i) => (
-            <Skeleton key={i} className="h-14 rounded-2xl" />
-          ))}
-        </div>
-      )}
+      {isPending && <ListSkeleton rows={5} label="Loading movements" testId="movements-loading" />}
 
       {isError && (
         <div className="mt-4 grid gap-3" data-testid="movements-error">
@@ -75,23 +66,16 @@ export function MovementsSection({ accountId, page, onPageChange, lookup }: Move
       )}
 
       {data && items.length === 0 && (
-        <div
-          className="grid justify-items-center gap-2 py-12 text-center"
-          data-testid="movements-empty"
-        >
-          <span
-            className="grid size-12 place-items-center rounded-full bg-muted"
-            aria-hidden="true"
-          >
-            <ReceiptTextIcon className="size-5 text-muted-foreground" />
-          </span>
-          <p className="font-bold">{page > 1 ? 'No more movements' : 'No movements yet'}</p>
-          <p className="max-w-xs text-sm text-muted-foreground">
-            {page > 1
+        <EmptyState
+          icon={ReceiptTextIcon}
+          title={page > 1 ? 'No more movements' : 'No movements yet'}
+          description={
+            page > 1
               ? 'You reached the end of the history.'
-              : 'Recharges and transfers on this account will appear here.'}
-          </p>
-        </div>
+              : 'Recharges and transfers on this account will appear here.'
+          }
+          testId="movements-empty"
+        />
       )}
 
       {items.length > 0 && (

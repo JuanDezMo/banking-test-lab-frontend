@@ -1,6 +1,8 @@
-import { ArrowLeftIcon, SearchXIcon } from 'lucide-react'
+import { SearchXIcon } from 'lucide-react'
 import { useMemo } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router'
+import { BackLink } from '@/components/shared/BackLink'
+import { EmptyState } from '@/components/shared/EmptyState'
 import { ErrorAlert } from '@/components/shared/ErrorAlert'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -53,37 +55,25 @@ export function AccountDetailPage({ view = 'customer' }: AccountDetailPageProps)
 
   return (
     <div className="account-detail-page grid gap-6" data-testid="account-detail-page">
-      <Link
-        to={backTo}
-        className="inline-flex items-center gap-2 justify-self-start rounded-full px-1 font-bold text-muted-foreground hover:text-foreground"
-        data-testid="back-to-accounts-link"
-      >
-        <ArrowLeftIcon className="size-4" aria-hidden="true" />
-        {backLabel}
-      </Link>
+      <BackLink to={backTo} label={backLabel} testId="back-to-accounts-link" />
 
       {account.isPending && (
         <Skeleton className="h-72 rounded-[32px]" data-testid="account-detail-loading" />
       )}
 
       {notFound && (
-        <section
-          className="grid justify-items-center gap-3 rounded-3xl bg-card px-6 py-16 text-center"
-          data-testid="account-not-found"
-        >
-          <span
-            className="grid size-14 place-items-center rounded-full bg-muted"
-            aria-hidden="true"
-          >
-            <SearchXIcon className="size-6 text-muted-foreground" />
-          </span>
-          <h1 className="text-2xl font-extrabold tracking-tight">Account not found</h1>
-          <p className="max-w-sm text-muted-foreground">
-            This account does not exist or you do not have access to it.
-          </p>
-          <Button asChild className="mt-2">
-            <Link to={backTo}>{isOperator ? 'Back to operations' : 'Go to your accounts'}</Link>
-          </Button>
+        <section className="rounded-3xl bg-card px-6" data-testid="account-not-found">
+          <EmptyState
+            icon={SearchXIcon}
+            headingLevel="h1"
+            title="Account not found"
+            description="This account does not exist or you do not have access to it."
+            action={
+              <Button asChild>
+                <Link to={backTo}>{isOperator ? 'Back to operations' : 'Go to your accounts'}</Link>
+              </Button>
+            }
+          />
         </section>
       )}
 

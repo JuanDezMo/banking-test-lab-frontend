@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { accountKeys } from '@/features/accounts/hooks/useAccounts'
-import { movementKeys } from '@/features/movements/hooks/useMovements'
 import type { ApiError } from '@/lib/http/ApiError'
+import { queryKeys } from '@/lib/queryKeys'
 import type { TransferFormValues } from '../schemas'
 import { transferService } from '../services/transferService'
 import type { TransferResult } from '../types'
@@ -15,8 +14,8 @@ export function useTransfer() {
     mutationFn: ({ values, idempotencyKey }) => transferService.transfer(values, idempotencyKey),
     onSuccess: async () => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: accountKeys.all }),
-        queryClient.invalidateQueries({ queryKey: movementKeys.all }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.accounts.all }),
+        queryClient.invalidateQueries({ queryKey: queryKeys.movements.all }),
       ])
     },
   })

@@ -1,7 +1,16 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemeProvider } from 'next-themes'
 import { useState, type ReactNode } from 'react'
+import { toast } from 'sonner'
 import { Toaster } from '@/components/ui/sonner'
+import { getGlobalErrorMessage } from '@/lib/errors'
+
+// Toast global para 5xx y errores de red. El id fijo evita apilar el mismo aviso
+// cuando fallan varias peticiones a la vez.
+function notifyGlobalError(error: unknown) {
+  const message = getGlobalErrorMessage(error)
+  if (message) toast.error(message, { id: 'global-error' })
+}
 
 type ProvidersProps = {
   children: ReactNode
@@ -13,6 +22,8 @@ export function Providers({ children }: ProvidersProps) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
+        queryCache: new QueryCache({ onError: notifyGlobalError }),
+        mutationCache: new MutationCache({ onError: notifyGlobalError }),
         defaultOptions: {
           queries: { retry: 1, refetchOnWindowFocus: false },
         },

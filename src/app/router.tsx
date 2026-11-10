@@ -7,6 +7,7 @@ import { LoginPage } from '@/pages/LoginPage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import { OperatorPage } from '@/pages/OperatorPage'
 import { RegisterPage } from '@/pages/RegisterPage'
+import { RouteErrorPage } from '@/pages/RouteErrorPage'
 import { TransferPage } from '@/pages/TransferPage'
 import { GuestRoute } from './guards/GuestRoute'
 import { ProtectedRoute } from './guards/ProtectedRoute'
@@ -17,6 +18,8 @@ import { AuthLayout } from './layouts/AuthLayout'
 export const router = createBrowserRouter([
   {
     element: <AppLayout />,
+    // Error inesperado al renderizar cualquier página: pantalla de error propia
+    errorElement: <RouteErrorPage />,
     children: [
       // Público: solo invitados (con sesión redirige al inicio del rol)
       { element: <GuestRoute />, children: [{ path: routes.home, element: <HomePage /> }] },
@@ -43,6 +46,7 @@ export const router = createBrowserRouter([
   },
   {
     element: <GuestRoute />,
+    errorElement: <RouteErrorPage />,
     children: [
       {
         element: <AuthLayout />,

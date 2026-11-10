@@ -134,16 +134,17 @@ Nueve iteraciones cortas; cada una termina con una entrega funcional que el usua
 
 ## Iteración 7: pulido
 
-Hecho: modo oscuro y página 404. El resto queda pendiente por decisión del usuario.
+Hecho: modo oscuro, página 404, `ErrorBoundary`, toast global, estados consistentes, refactor, README y regla de capas entre features. Pendiente: accesibilidad, revisión responsive y pasos del skill de diseño.
 
 - [x] Modo claro y oscuro con selector (claro, oscuro, sistema) persistido por `next-themes` (`btl-theme`)
 - [ ] Revisión responsive en 375, 768 y 1280 px
 - [ ] Accesibilidad: labels, `aria-label` en botones de ícono, `role="alert"`, foco visible, navegación por teclado en diálogos
 - [x] Página 404 para rutas inexistentes
-- [ ] `ErrorBoundary` global (pendiente)
-- [ ] Toast genérico para 500 y errores de red
-- [ ] Estados vacíos y de carga consistentes en todas las vistas
-- [ ] Refactor: eliminar duplicación detectada y actualizar `README.md`
+- [x] `ErrorBoundary` global (`RouteErrorPage` como `errorElement`)
+- [x] Toast genérico para 500 y errores de red (`QueryCache`/`MutationCache`)
+- [x] Estados vacíos y de carga consistentes (`EmptyState`, `ListSkeleton`)
+- [x] Refactor (`BackLink`, `AmountInput`, `RadioCard`, `lib/validation.ts`, `lib/queryKeys.ts`) y `README.md`
+- [x] Regla de capas entre features en ESLint (solo se comparte el dominio)
 - [ ] Skill de diseño: revisión final (finish review) y generar `DESIGN.md`
 
 **Terminado cuando:** todas las vistas funcionan en los tres anchos y con teclado.
