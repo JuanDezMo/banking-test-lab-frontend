@@ -1,5 +1,7 @@
 import { env } from '@/config/env'
+import { useAuthStore } from '@/store/authStore'
 import { ApiError, type ApiErrorCode } from './ApiError'
+import { refreshAccessToken } from './tokenRefresh'
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
 type QueryParams = Record<string, string | number | undefined>
@@ -10,6 +12,8 @@ export type RequestOptions = {
   query?: QueryParams
   headers?: Record<string, string>
   signal?: AbortSignal
+  // false en endpoints públicos (registro, login): no envía Bearer ni intenta refresh
+  auth?: boolean
 }
 
 // Construye la URL final: prefijo de la API + ruta + query string
@@ -63,34 +67,58 @@ async function toApiError(response: Response): Promise<ApiError> {
   })
 }
 
-// Función base: hace la petición con fetch y devuelve el JSON tipado o lanza ApiError
-export async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
-  const { method = 'GET', body, query, headers = {}, signal } = options
-
-  const init: RequestInit = {
-    method,
-    signal,
-    headers: { Accept: 'application/json', ...headers },
-  }
-  if (body !== undefined) {
-    init.headers = { ...init.headers, 'Content-Type': 'application/json' }
-    init.body = JSON.stringify(body)
-  }
-
-  let response: Response
+// Hace una petición con fetch; devuelve la Response o lanza ApiError de red
+async function send(url: string, init: RequestInit): Promise<Response> {
   try {
-    response = await fetch(buildUrl(path, query), init)
+    return await fetch(url, init)
   } catch (error) {
     // Una cancelación no es un error de red: se propaga tal cual
     if (error instanceof DOMException && error.name === 'AbortError') throw error
     throw new ApiError({ status: 0, code: 'NETWORK_ERROR', message: 'Unable to reach the server' })
   }
+}
 
-  if (!response.ok) throw await toApiError(response)
+// Función base: hace la petición con fetch y devuelve el JSON tipado o lanza ApiError
+export async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
+  const { method = 'GET', body, query, headers = {}, signal, auth = true } = options
+  const url = buildUrl(path, query)
 
-  // 204 No Content: no hay cuerpo que leer
+  // Arma los headers con el token indicado (o sin Authorization si no hay)
+  const buildInit = (accessToken: string | null): RequestInit => {
+    const finalHeaders: Record<string, string> = { Accept: 'application/json', ...headers }
+    if (body !== undefined) finalHeaders['Content-Type'] = 'application/json'
+    if (auth && accessToken) finalHeaders.Authorization = `Bearer ${accessToken}`
+    return {
+      method,
+      signal,
+      headers: finalHeaders,
+      body: body !== undefined ? JSON.stringify(body) : undefined,
+    }
+  }
+
+  let response = await send(url, buildInit(useAuthStore.getState().accessToken))
+
+  if (!response.ok) {
+    let error = await toApiError(response)
+
+    // Access token vencido: se renueva una vez y se repite la petición original
+    if (auth && error.code === 'UNAUTHORIZED') {
+      const newToken = await refreshAccessToken()
+      if (newToken) {
+        response = await send(url, buildInit(newToken))
+        if (response.ok) return parseBody<T>(response)
+        error = await toApiError(response)
+      }
+    }
+    throw error
+  }
+
+  return parseBody<T>(response)
+}
+
+// 204 No Content no tiene cuerpo; el resto se lee como JSON
+async function parseBody<T>(response: Response): Promise<T> {
   if (response.status === 204) return undefined as T
-
   return (await response.json()) as T
 }
 

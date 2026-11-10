@@ -2,10 +2,15 @@ import { NavLink, Outlet } from 'react-router'
 import { BrandLogo } from '@/components/shared/BrandLogo'
 import { TestEnvBadge } from '@/components/shared/TestEnvBadge'
 import { cn } from '@/lib/utils'
-import { navItems } from './navigation'
+import { selectUser, useAuthStore } from '@/store/authStore'
+import { getNavItems } from './navigation'
+import { UserMenu } from '@/features/auth/components/UserMenu'
 
 // Layout de la app: sidebar en escritorio (md+) y barra de pestañas inferior en móvil
 export function AppLayout() {
+  const user = useAuthStore(selectUser)
+  const navItems = getNavItems(user?.role ?? null)
+
   return (
     <div className="app-layout min-h-svh bg-background text-foreground md:grid md:grid-cols-[232px_minmax(0,1fr)]">
       {/* Sidebar de escritorio */}
@@ -38,7 +43,10 @@ export function AppLayout() {
             ))}
           </ul>
         </nav>
-        <TestEnvBadge className="mt-auto self-start" />
+        <div className="mt-auto grid gap-3">
+          <TestEnvBadge className="self-start" />
+          {user && <UserMenu user={user} />}
+        </div>
       </aside>
 
       <div className="flex min-h-svh flex-col pb-24 md:pb-0">
@@ -48,7 +56,10 @@ export function AppLayout() {
           data-testid="app-mobile-header"
         >
           <BrandLogo />
-          <TestEnvBadge />
+          <div className="flex items-center gap-2">
+            <TestEnvBadge />
+            {user && <UserMenu user={user} compact />}
+          </div>
         </header>
 
         <main id="main-content" className="w-full max-w-6xl flex-1 px-4 py-6 md:px-10 md:py-8">

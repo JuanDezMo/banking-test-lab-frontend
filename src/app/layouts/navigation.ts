@@ -1,4 +1,12 @@
-import { HomeIcon, LogInIcon, UserPlusIcon, type LucideIcon } from 'lucide-react'
+import {
+  HomeIcon,
+  LandmarkIcon,
+  LogInIcon,
+  UserPlusIcon,
+  WalletCardsIcon,
+  type LucideIcon,
+} from 'lucide-react'
+import type { Role } from '@/features/auth/types'
 import { routes } from '@/config/routes'
 
 export type NavItem = {
@@ -8,9 +16,23 @@ export type NavItem = {
   testId: string
 }
 
-// Navegación principal. En la iteración 2 dependerá de la sesión y del rol.
-export const navItems: NavItem[] = [
+const guestItems: NavItem[] = [
   { label: 'Home', to: routes.home, icon: HomeIcon, testId: 'nav-home' },
   { label: 'Sign in', to: routes.login, icon: LogInIcon, testId: 'nav-login' },
   { label: 'Sign up', to: routes.register, icon: UserPlusIcon, testId: 'nav-register' },
 ]
+
+const customerItems: NavItem[] = [
+  { label: 'Accounts', to: routes.accounts, icon: WalletCardsIcon, testId: 'nav-accounts' },
+]
+
+const operatorItems: NavItem[] = [
+  { label: 'Operations', to: routes.operator, icon: LandmarkIcon, testId: 'nav-operator' },
+]
+
+// Navegación según la sesión: invitado, cliente u operador
+export function getNavItems(role: Role | null): NavItem[] {
+  if (role === 'customer') return customerItems
+  if (role === 'operator') return operatorItems
+  return guestItems
+}

@@ -7,6 +7,7 @@ export function createAuthService(repository: AuthRepository) {
   return {
     register: (input: RegisterInput) => repository.register(input),
     login: (input: LoginInput) => repository.login(input),
+    logout: (refreshToken: string) => repository.logout(refreshToken),
   }
 }
 

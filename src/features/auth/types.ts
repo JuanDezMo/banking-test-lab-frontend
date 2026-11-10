@@ -12,6 +12,7 @@ export type LoginInput = components['schemas']['LoginRequest']
 export interface AuthRepository {
   register(input: RegisterInput): Promise<User>
   login(input: LoginInput): Promise<TokenPair>
+  logout(refreshToken: string): Promise<void>
 }
 
 // Estado de navegación que recibe la página de login (por ejemplo, tras registrarse)

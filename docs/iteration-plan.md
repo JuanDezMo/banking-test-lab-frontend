@@ -68,16 +68,16 @@ Nueve iteraciones cortas; cada una termina con una entrega funcional que el usua
 
 ## Iteración 2: sesión
 
-- [ ] `store/authStore.ts` (Zustand + `persist` en `sessionStorage`): tokens, usuario derivado del JWT (`sub`, `role`), `setSession`, `clear`
-- [ ] `lib/jwt.ts`: decodificar el payload del access token (sin validar firma)
-- [ ] `httpClient`: agregar `Authorization: Bearer` a las peticiones protegidas
-- [ ] `httpClient`: ante 401, un solo `POST /auth/refresh` compartido y reintento de la petición original
-- [ ] Si el refresh falla, limpiar sesión y redirigir a `/login`
-- [ ] `app/guards/ProtectedRoute.tsx` y `RoleRoute.tsx` (`customer`, `operator`)
-- [ ] Redirección tras login según rol: customer → `/accounts`, operator → `/operator`
-- [ ] Logout (`POST /auth/logout`) en el menú de usuario; limpia sesión y caché de queries
-- [ ] Header con nombre de rol y menú de usuario
-- [ ] Pruebas: `authStore`, `jwt.ts`, refresh concurrente en `httpClient`
+- [x] `store/authStore.ts` (Zustand + `persist` en `sessionStorage`): tokens, usuario derivado del JWT (`sub`, `role`), `setSession`, `clear`
+- [x] `lib/jwt.ts`: decodificar el payload del access token (sin validar firma)
+- [x] `httpClient`: agregar `Authorization: Bearer` a las peticiones protegidas
+- [x] `httpClient`: ante 401, un solo `POST /auth/refresh` compartido y reintento de la petición original
+- [x] Si el refresh falla, limpiar sesión y redirigir a `/login`
+- [x] `app/guards/ProtectedRoute.tsx` y `RoleRoute.tsx` (`customer`, `operator`)
+- [x] Redirección tras login según rol: customer → `/accounts`, operator → `/operator`
+- [x] Logout (`POST /auth/logout`) en el menú de usuario; limpia sesión y caché de queries
+- [x] Header con nombre de rol y menú de usuario
+- [x] Pruebas: `authStore`, `jwt.ts`, refresh concurrente en `httpClient`
 
 **Terminado cuando:** la sesión sobrevive a recargar la página, un token vencido se renueva sin que el usuario lo note y las rutas rechazan al rol incorrecto.
 
@@ -141,6 +141,7 @@ Nueve iteraciones cortas; cada una termina con una entrega funcional que el usua
 - [ ] Toast genérico para 500 y errores de red
 - [ ] Estados vacíos y de carga consistentes en todas las vistas
 - [ ] Refactor: eliminar duplicación detectada y actualizar `README.md`
+- [ ] Skill de diseño: revisión final (finish review) y generar `DESIGN.md`
 
 **Terminado cuando:** todas las vistas funcionan en los tres anchos y con teclado.
 

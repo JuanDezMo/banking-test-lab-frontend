@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import { toast } from 'sonner'
 import { AuthCard } from '@/components/shared/AuthCard'
 import { routes } from '@/config/routes'
@@ -6,15 +6,13 @@ import { LoginForm } from '@/features/auth/components/LoginForm'
 import type { LoginLocationState } from '@/features/auth/types'
 
 export function LoginPage() {
-  const navigate = useNavigate()
   const location = useLocation()
   // Email que llega desde el registro (si existe)
   const state = location.state as LoginLocationState | null
 
-  // Iteración 1: el login funciona pero los tokens aún no se guardan (iteración 2)
+  // El hook guarda la sesión; GuestRoute redirige al inicio del rol (o a state.from)
   const handleSuccess = () => {
     toast.success('Signed in successfully')
-    navigate(routes.home)
   }
 
   return (

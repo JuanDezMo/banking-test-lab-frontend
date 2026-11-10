@@ -1,22 +1,44 @@
 import { createBrowserRouter } from 'react-router'
 import { routes } from '@/config/routes'
+import { AccountsPage } from '@/pages/AccountsPage'
 import { HomePage } from '@/pages/HomePage'
 import { LoginPage } from '@/pages/LoginPage'
+import { OperatorPage } from '@/pages/OperatorPage'
 import { RegisterPage } from '@/pages/RegisterPage'
+import { GuestRoute } from './guards/GuestRoute'
+import { ProtectedRoute } from './guards/ProtectedRoute'
 import { AppLayout } from './layouts/AppLayout'
 import { AuthLayout } from './layouts/AuthLayout'
 
-// Definición de rutas: cada layout agrupa las páginas que comparten estructura
+// Rutas: las guardas deciden quién entra; los layouts, cómo se ve cada grupo
 export const router = createBrowserRouter([
   {
     element: <AppLayout />,
-    children: [{ path: routes.home, element: <HomePage /> }],
+    children: [
+      // Público: solo invitados (con sesión redirige al inicio del rol)
+      { element: <GuestRoute />, children: [{ path: routes.home, element: <HomePage /> }] },
+      // Cliente
+      {
+        element: <ProtectedRoute roles={['customer']} />,
+        children: [{ path: routes.accounts, element: <AccountsPage /> }],
+      },
+      // Operador
+      {
+        element: <ProtectedRoute roles={['operator']} />,
+        children: [{ path: routes.operator, element: <OperatorPage /> }],
+      },
+    ],
   },
   {
-    element: <AuthLayout />,
+    element: <GuestRoute />,
     children: [
-      { path: routes.login, element: <LoginPage /> },
-      { path: routes.register, element: <RegisterPage /> },
+      {
+        element: <AuthLayout />,
+        children: [
+          { path: routes.login, element: <LoginPage /> },
+          { path: routes.register, element: <RegisterPage /> },
+        ],
+      },
     ],
   },
 ])
