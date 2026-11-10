@@ -20,7 +20,7 @@ export function BrandLogo({
   return (
     <span
       className={cn(
-        'brand-logo inline-flex items-center gap-2.5 font-extrabold tracking-tight',
+        'brand-logo inline-flex items-center gap-2.5 font-extrabold tracking-tight whitespace-nowrap',
         className,
       )}
       data-testid="brand-logo"

@@ -4,6 +4,14 @@ import { cleanup } from '@testing-library/react'
 import { afterEach, vi } from 'vitest'
 import { useAuthStore } from '@/store/authStore'
 
+// jsdom no implementa ResizeObserver (lo usan componentes de Radix como RadioGroup)
+class ResizeObserverStub {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+globalThis.ResizeObserver ??= ResizeObserverStub as unknown as typeof ResizeObserver
+
 // Después de cada prueba: desmonta componentes, restaura mocks globales (fetch)
 // y limpia la sesión para que una prueba no afecte a la siguiente
 afterEach(() => {

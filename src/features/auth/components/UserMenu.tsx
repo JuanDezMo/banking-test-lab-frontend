@@ -49,7 +49,7 @@ export function UserMenu({ user, compact = false }: UserMenuProps) {
       <DropdownMenuTrigger
         className={cn(
           'user-menu-trigger flex items-center gap-3 rounded-2xl text-left transition-colors hover:bg-secondary',
-          compact ? 'p-0.5' : 'w-full p-2',
+          compact ? 'p-0.5' : 'w-full min-w-0 p-2',
         )}
         aria-label="Open user menu"
         data-testid="user-menu-trigger"

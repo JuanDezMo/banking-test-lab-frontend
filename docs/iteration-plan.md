@@ -83,14 +83,14 @@ Nueve iteraciones cortas; cada una termina con una entrega funcional que el usua
 
 ## Iteración 3: cuentas
 
-- [ ] `lib/money.ts`: `formatCents(150000)` → `$1,500.00` y `parseToCents("1500.00")` → `150000`, procesando el texto, sin aritmética de punto flotante; locale y moneda en `config/money.ts`; con pruebas unitarias
-- [ ] `components/shared/MoneyText.tsx` (saldo negativo en rojo)
-- [ ] `features/accounts`: types, `AccountRepository`, `accountApi` (`list`, `create`, `getById`), `accountService`
-- [ ] Hooks `useAccounts` y `useCreateAccount` (invalida `['accounts']`)
-- [ ] `AccountCard`: número, tipo (Badge), saldo y límite de sobregiro
-- [ ] `CreateAccountDialog` con `Select` de `savings` o `checking`
-- [ ] `DashboardPage`: grid responsive (1, 2 o 3 columnas), `Skeleton` en carga, estado vacío
-- [ ] Copiar número de cuenta al portapapeles
+- [x] `lib/money.ts`: `formatCents(150000)` → `$1,500.00` y `parseToCents("1500.00")` → `150000`, procesando el texto, sin aritmética de punto flotante; locale y moneda en `config/money.ts`; con pruebas unitarias
+- [x] `components/shared/MoneyText.tsx` (saldo negativo en rojo)
+- [x] `features/accounts`: types, `AccountRepository`, `accountApi` (`list`, `create`, `getById`), `accountService`
+- [x] Hooks `useAccounts` y `useCreateAccount` (invalida `['accounts']`)
+- [x] `AccountCard`: número, tipo (Badge), saldo y límite de sobregiro
+- [x] `CreateAccountDialog` con `Select` de `savings` o `checking`
+- [x] `DashboardPage`: grid responsive (1, 2 o 3 columnas), `Skeleton` en carga, estado vacío
+- [x] Copiar número de cuenta al portapapeles
 
 **Terminado cuando:** un customer crea ambas cuentas y las ve con saldo 0, en móvil y escritorio.
 

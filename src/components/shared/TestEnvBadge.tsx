@@ -10,7 +10,7 @@ export function TestEnvBadge({ tone = 'default', className }: TestEnvBadgeProps)
   return (
     <span
       className={cn(
-        'test-env-badge inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold',
+        'test-env-badge inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold whitespace-nowrap',
         tone === 'inverse'
           ? 'bg-inverse-raised text-inverse-foreground ring-1 ring-white/10'
           : 'bg-accent text-accent-foreground',

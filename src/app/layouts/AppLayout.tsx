@@ -43,8 +43,8 @@ export function AppLayout() {
             ))}
           </ul>
         </nav>
-        <div className="mt-auto grid gap-3">
-          <TestEnvBadge className="self-start" />
+        <div className="mt-auto grid min-w-0 gap-3">
+          <TestEnvBadge className="justify-self-start" />
           {user && <UserMenu user={user} />}
         </div>
       </aside>
@@ -55,7 +55,7 @@ export function AppLayout() {
           className="app-mobile-header flex items-center justify-between px-4 pt-5 md:hidden"
           data-testid="app-mobile-header"
         >
-          <BrandLogo />
+          <BrandLogo showName={false} />
           <div className="flex items-center gap-2">
             <TestEnvBadge />
             {user && <UserMenu user={user} compact />}
