@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Annual Report · Banking Test Lab</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #0b2545;
+        --navy-2: #13315c;
+        --ground: #f3f5f8;
+        --paper: #fff;
+        --blue: #1f5fbf;
+        --ink: #111a26;
+        --muted: #5b6472;
+        --rule: #dfe3ea;
+        --pos: #1d7a4e;
+        --neg: #b3261e;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        width: 1440px;
+        height: 900px;
+        overflow: hidden;
+        font-family: 'Public Sans', system-ui, sans-serif;
+        color: var(--ink);
+        background: var(--ground);
+      }
+      .num {
+        font-variant-numeric: tabular-nums lining-nums;
+      }
+      .band {
+        background: var(--navy);
+        color: #fff;
+      }
+      .bar {
+        max-width: 1280px;
+        margin: 0 auto;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        padding: 0 32px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: -0.01em;
+      }
+      nav {
+        display: flex;
+        gap: 4px;
+      }
+      nav a {
+        color: #c6d2e4;
+        text-decoration: none;
+        font-size: 14px;
+        padding: 22px 14px;
+        border-bottom: 2px solid transparent;
+      }
+      nav a.on {
+        color: #fff;
+        border-color: #6fa1ec;
+      }
+      .right {
+        margin-left: auto;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        font-size: 13px;
+        color: #c6d2e4;
+      }
+      .env {
+        border: 1px solid #3d5a85;
+        border-radius: 4px;
+        padding: 6px 12px;
+        color: #e4ecf7;
+      }
+      .wrap {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 36px 32px;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 32px;
+      }
+      .key {
+        grid-column: 1/-1;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 32px;
+        align-items: end;
+        padding-bottom: 28px;
+        border-bottom: 1px solid var(--rule);
+      }
+      .key h1 {
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      .figure {
+        font-size: 64px;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+        margin-top: 6px;
+      }
+      .figure small {
+        font-size: 28px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .delta {
+        font-size: 14px;
+        color: var(--pos);
+        margin-top: 8px;
+      }
+      .chart {
+        height: 110px;
+      }
+      .cta {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 14px;
+      }
+      .btn {
+        font: 600 14px 'Public Sans';
+        padding: 11px 18px;
+        border-radius: 4px;
+        border: 1px solid var(--rule);
+        background: var(--paper);
+        color: var(--navy);
+      }
+      .btn.primary {
+        background: var(--blue);
+        border-color: var(--blue);
+        color: #fff;
+      }
+      h2 {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        letter-spacing: -0.01em;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--paper);
+        border: 1px solid var(--rule);
+      }
+      th {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--muted);
+        text-align: left;
+        padding: 12px 16px;
+        border-bottom: 2px solid var(--navy);
+      }
+      td {
+        font-size: 14px;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--rule);
+      }
+      .r {
+        text-align: right;
+      }
+      .neg {
+        color: var(--neg);
+      }
+      .pos {
+        color: var(--pos);
+      }
+      .acct {
+        display: grid;
+        gap: 0;
+        background: var(--paper);
+        border: 1px solid var(--rule);
+      }
+      .acct div {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--rule);
+      }
+      .acct div:last-child {
+        border: 0;
+      }
+      .acct b {
+        font-weight: 600;
+        font-size: 14px;
+        display: block;
+      }
+      .acct span {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .acct .v {
+        font-size: 18px;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="band">
+      <div class="bar">
+        <div class="brand">
+          <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+            <rect width="30" height="30" rx="4" fill="#fff" />
+            <rect x="6" y="17" width="4" height="7" fill="#0b2545" />
+            <rect x="13" y="12" width="4" height="12" fill="#0b2545" />
+            <rect x="20" y="7" width="4" height="17" fill="#1f5fbf" /></svg
+          >Banking Test Lab
+        </div>
+        <nav>
+          <a class="on" href="#">Accounts</a><a href="#">Transfers</a><a href="#">History</a>
+        </nav>
+        <div class="right"><span class="env">Test environment</span><span>Ana Pérez</span></div>
+      </div>
+    </div>
+    <div class="wrap">
+      <section class="key">
+        <div>
+          <h1>Total balance across 3 accounts</h1>
+          <div class="figure num">$12,160<small>.50</small></div>
+          <div class="delta num">+$2,650.00 since Oct 31 · as of Nov 10, 2026</div>
+        </div>
+        <div>
+          <svg
+            class="chart"
+            viewBox="0 0 520 110"
+            width="100%"
+            aria-label="Balance over the last 30 days"
+          >
+            <line x1="0" y1="100" x2="520" y2="100" stroke="#dfe3ea" />
+            <polyline
+              fill="none"
+              stroke="#0b2545"
+              stroke-width="2"
+              points="0,70 60,72 120,66 180,74 240,80 300,62 360,60 420,40 470,30 520,34"
+            />
+            <circle cx="470" cy="30" r="4" fill="#1f5fbf" />
+            <text x="470" y="18" font-size="11" text-anchor="middle" fill="#5b6472">Salary</text>
+          </svg>
+          <div class="cta">
+            <button class="btn">Open account</button
+            ><button class="btn primary">New transfer</button>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>Recent movements</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Account</th>
+              <th>Description</th>
+              <th class="r">Amount</th>
+            </tr>
+          </thead>
+          <tbody class="num">
+            <tr>
+              <td>Nov 10</td>
+              <td>0012345678</td>
+              <td>Transfer to 0098765432</td>
+              <td class="r neg">−$400.00</td>
+            </tr>
+            <tr>
+              <td>Nov 9</td>
+              <td>0012345678</td>
+              <td>Recharge · salary</td>
+              <td class="r pos">+$3,200.00</td>
+            </tr>
+            <tr>
+              <td>Nov 8</td>
+              <td>0012345678</td>
+              <td>Transfer from 0055501234</td>
+              <td class="r pos">+$150.00</td>
+            </tr>
+            <tr>
+              <td>Nov 6</td>
+              <td>0012345679</td>
+              <td>Recharge · cash</td>
+              <td class="r pos">+$500.00</td>
+            </tr>
+            <tr>
+              <td>Nov 4</td>
+              <td>0012345679</td>
+              <td>Transfer to 0012345678</td>
+              <td class="r neg">−$1,250.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <aside>
+        <h2>Accounts</h2>
+        <div class="acct num">
+          <div>
+            <span><b>Savings</b>0012345678</span
+            ><span class="v" style="color: #111a26">$12,480.50</span>
+          </div>
+          <div>
+            <span><b>Checking</b>0012345679 · overdraft $5,000</span
+            ><span class="v neg">−$320.00</span>
+          </div>
+          <div>
+            <span><b>Savings</b>0012345680</span><span class="v" style="color: #111a26">$0.00</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </body>
+</html>

@@ -109,6 +109,7 @@ export function LoginForm({ defaultEmail = '', onSuccess }: LoginFormProps) {
         </Field>
 
         <SubmitButton
+          size="lg"
           className="w-full"
           isPending={loginMutation.isPending}
           pendingText="Signing in..."

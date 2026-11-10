@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Forest &amp; Terracotta · Banking Test Lab</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --forest: #174d3b;
+        --forest-2: #113d2f;
+        --forest-soft: #e5efe9;
+        --terra: #b4472f;
+        --terra-soft: #f9e6e1;
+        --ground: #ffffff;
+        --side: #f4f6f4;
+        --ink: #1a221e;
+        --muted: #59645e;
+        --line: #e4e8e5;
+        --pos: #1d7a4c;
+        --neg: #b03a2e;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        min-width: 1280px;
+        min-height: 100vh;
+        font:
+          15px/1.5 'Hanken Grotesk',
+          system-ui,
+          sans-serif;
+        color: var(--ink);
+        background: var(--ground);
+        display: grid;
+        grid-template-columns: 248px 1fr;
+      }
+      .num {
+        font-variant-numeric: tabular-nums;
+      }
+      aside {
+        background: var(--side);
+        border-right: 1px solid var(--line);
+        padding: 28px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        color: var(--forest);
+      }
+      nav {
+        display: grid;
+        gap: 2px;
+      }
+      nav a {
+        padding: 10px 14px;
+        border-radius: 8px;
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 500;
+      }
+      nav a.on {
+        background: var(--forest);
+        color: #fff;
+      }
+      .env {
+        margin-top: auto;
+        font-size: 12px;
+        font-weight: 600;
+        color: #93361f;
+        border: 1px solid #ecc3b9;
+        background: var(--terra-soft);
+        border-radius: 6px;
+        padding: 6px 10px;
+        align-self: start;
+      }
+      main {
+        padding: 40px 56px;
+        display: grid;
+        grid-template-columns: 1fr 340px;
+        gap: 32px;
+        align-content: start;
+        max-width: 1220px;
+      }
+      .balance {
+        grid-column: 1/-1;
+        background: var(--forest);
+        color: #fff;
+        border-radius: 16px;
+        padding: 28px 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+      }
+      .balance p {
+        color: #bfd6cb;
+      }
+      .balance .v {
+        font-size: 44px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+      }
+      .balance .s {
+        display: flex;
+        gap: 28px;
+        margin-top: 10px;
+        color: #dbe9e2;
+        font-size: 14px;
+      }
+      .btn {
+        font: 600 14px 'Hanken Grotesk';
+        padding: 11px 18px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        background: transparent;
+        color: #fff;
+        margin-left: 8px;
+      }
+      .btn.primary {
+        background: var(--terra);
+        border-color: var(--terra);
+      }
+      h2 {
+        font-size: 17px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 76px 1fr 130px 120px;
+        gap: 12px;
+        padding: 13px 0;
+        border-bottom: 1px solid var(--line);
+        align-items: center;
+      }
+      .row .d,
+      .row .k {
+        color: var(--muted);
+      }
+      .tag {
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 999px;
+        padding: 3px 10px;
+        justify-self: start;
+      }
+      .t-in {
+        background: var(--forest-soft);
+        color: var(--forest);
+      }
+      .t-out {
+        background: var(--terra-soft);
+        color: #8e3322;
+      }
+      .r {
+        text-align: right;
+        font-weight: 600;
+      }
+      .pos {
+        color: var(--pos);
+      }
+      .neg {
+        color: var(--neg);
+      }
+      .acc {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 18px 20px;
+        display: grid;
+        gap: 4px;
+        margin-bottom: 12px;
+      }
+      .acc.sel {
+        border-color: var(--forest);
+        background: #fafcfb;
+      }
+      .acc .t {
+        font-weight: 600;
+      }
+      .acc .n {
+        color: var(--muted);
+        font-size: 13px;
+        letter-spacing: 0.04em;
+      }
+      .acc .v {
+        font-size: 22px;
+        font-weight: 700;
+      }
+      .link {
+        color: var(--forest);
+        font-weight: 600;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <aside>
+      <div class="brand">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+          <rect width="34" height="34" rx="17" fill="#174d3b" />
+          <path
+            d="M10 22h14M12 22v-7m5 7v-7m5 7v-7M9 14l8-5 8 5z"
+            fill="none"
+            stroke="#fff"
+            stroke-width="2"
+            stroke-linejoin="round"
+          />
+          <circle cx="17" cy="11.5" r="1.4" fill="#b4472f" /></svg
+        >Banking Test Lab
+      </div>
+      <nav>
+        <a class="on" href="#">Accounts</a><a href="#">Transfer</a><a href="#">History</a
+        ><a href="#">Profile</a>
+      </nav>
+      <span class="env">Test environment</span>
+    </aside>
+    <main>
+      <section class="balance num">
+        <div>
+          <p>Total balance</p>
+          <p class="v">$12,160.50</p>
+          <div class="s">
+            <span>Available incl. overdraft $17,160.50</span><span>3 accounts</span>
+          </div>
+        </div>
+        <div>
+          <button class="btn">Open account</button><button class="btn primary">New transfer</button>
+        </div>
+      </section>
+      <section>
+        <h2>Recent movements</h2>
+        <div class="row num">
+          <span class="d">Nov 10</span><span>Transfer to 0098765432</span
+          ><span class="tag t-out">Transfer out</span><span class="r neg">−$400.00</span>
+        </div>
+        <div class="row num">
+          <span class="d">Nov 9</span><span>Salary</span><span class="tag t-in">Recharge</span
+          ><span class="r pos">+$3,200.00</span>
+        </div>
+        <div class="row num">
+          <span class="d">Nov 8</span><span>Transfer from 0055501234</span
+          ><span class="tag t-in">Transfer in</span><span class="r pos">+$150.00</span>
+        </div>
+        <div class="row num">
+          <span class="d">Nov 6</span><span>Cash deposit</span><span class="tag t-in">Recharge</span
+          ><span class="r pos">+$500.00</span>
+        </div>
+        <div class="row num">
+          <span class="d">Nov 4</span><span>Transfer to 0012345679</span
+          ><span class="tag t-out">Transfer out</span><span class="r neg">−$1,250.00</span>
+        </div>
+        <p style="margin-top: 14px"><a class="link" href="#">View full history</a></p>
+      </section>
+      <section aria-label="Accounts">
+        <h2>Your accounts</h2>
+        <article class="acc sel num">
+          <span class="t">Savings</span><span class="n">0012345678</span
+          ><span class="v">$12,480.50</span>
+        </article>
+        <article class="acc num">
+          <span class="t">Checking</span><span class="n">0012345679 · overdraft $5,000</span
+          ><span class="v neg">−$320.00</span>
+        </article>
+        <article class="acc num">
+          <span class="t">Savings</span><span class="n">0012345680</span
+          ><span class="v">$0.00</span>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

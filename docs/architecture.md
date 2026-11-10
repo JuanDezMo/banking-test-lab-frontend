@@ -38,6 +38,8 @@ El stack base es pnpm + TypeScript + React + Tailwind + shadcn/ui; el resto son 
 | ESLint + Prettier                | Calidad             | Reglas de estilo y formato; eslint-plugin-boundaries hace cumplir la regla de capas                                                               | Proyecto                          |
 | Vitest + Testing Library + jsdom | Pruebas unitarias   | Probar utilidades (`money`, `errors`), servicios con repositorios falsos y componentes                                                            | `*.test.ts(x)` junto al archivo   |
 
+Diseño visual: tokens en `src/index.css` (claro y `.dark`), tipografía Manrope, contrato de diseño en `.impeccable/surfaces/` y producto en `PRODUCT.md`.
+
 Los montos viajan en centavos enteros: `lib/money.ts` convierte entre centavos y texto con formato, sin usar decimales en la lógica.
 
 ## Arquitectura por capas

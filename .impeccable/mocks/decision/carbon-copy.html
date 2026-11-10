@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Carbon Copy · Banking Test Lab</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --canary: #ffd43b;
+        --canary-ink: #5c4700;
+        --white: #fff;
+        --pink: #ff8fab;
+        --pink-soft: #ffe3ea;
+        --canary-soft: #fff3c4;
+        --sky-soft: #e6ebff;
+        --blue: #2741c7;
+        --ink: #1b1b1f;
+        --muted: #5f6068;
+        --line: #ececef;
+        --pos: #16794a;
+        --neg: #c0283f;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        width: 1440px;
+        height: 900px;
+        overflow: hidden;
+        font:
+          16px/1.5 'Hanken Grotesk',
+          system-ui,
+          sans-serif;
+        color: var(--ink);
+        background: var(--white);
+        display: grid;
+        grid-template-columns: 232px 1fr;
+      }
+      .num {
+        font-variant-numeric: tabular-nums;
+      }
+      aside {
+        background: var(--canary);
+        padding: 28px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 36px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--ink);
+      }
+      nav {
+        display: grid;
+        gap: 4px;
+      }
+      nav a {
+        padding: 10px 14px;
+        border-radius: 999px;
+        color: var(--canary-ink);
+        text-decoration: none;
+        font-weight: 500;
+      }
+      nav a.on {
+        background: var(--ink);
+        color: #fff;
+      }
+      .env {
+        margin-top: auto;
+        font-size: 13px;
+        color: var(--canary-ink);
+        font-weight: 500;
+      }
+      main {
+        padding: 48px 64px;
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 56px;
+        align-content: start;
+      }
+      .hello {
+        color: var(--muted);
+      }
+      .total {
+        font-size: 56px;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        margin: 4px 0 24px;
+      }
+      .actions {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 48px;
+      }
+      .btn {
+        font: 600 16px 'Hanken Grotesk';
+        padding: 12px 22px;
+        border-radius: 999px;
+        border: 1.5px solid var(--ink);
+        background: #fff;
+        color: var(--ink);
+      }
+      .btn.primary {
+        background: var(--blue);
+        border-color: var(--blue);
+        color: #fff;
+      }
+      h2 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 90px 1fr auto;
+        gap: 16px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--line);
+        align-items: center;
+      }
+      .row .d {
+        color: var(--muted);
+      }
+      .chip {
+        font-size: 13px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 999px;
+        margin-right: 8px;
+      }
+      .c-y {
+        background: var(--canary-soft);
+        color: var(--canary-ink);
+      }
+      .c-p {
+        background: var(--pink-soft);
+        color: #8a1d3a;
+      }
+      .c-b {
+        background: var(--sky-soft);
+        color: var(--blue);
+      }
+      .amt {
+        font-weight: 600;
+      }
+      .pos {
+        color: var(--pos);
+      }
+      .neg {
+        color: var(--neg);
+      }
+      .accounts {
+        display: grid;
+        gap: 14px;
+      }
+      .copy {
+        border-radius: 14px;
+        padding: 20px 22px;
+        display: grid;
+        gap: 6px;
+      }
+      .copy.y {
+        background: var(--canary-soft);
+      }
+      .copy.p {
+        background: var(--pink-soft);
+      }
+      .copy.b {
+        background: var(--sky-soft);
+      }
+      .copy .t {
+        font-weight: 700;
+      }
+      .copy .n {
+        color: var(--muted);
+        letter-spacing: 0.02em;
+      }
+      .copy .v {
+        font-size: 26px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+    </style>
+  </head>
+  <body>
+    <aside>
+      <div class="brand">
+        <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="9" y="3" width="20" height="24" rx="3" fill="#ff8fab" />
+          <rect x="6" y="5" width="20" height="24" rx="3" fill="#fff" />
+          <rect x="3" y="7" width="20" height="22" rx="3" fill="#2741c7" />
+          <path
+            d="M8 15h10M8 20h7"
+            stroke="#ffd43b"
+            stroke-width="2.4"
+            stroke-linecap="round"
+          /></svg
+        >Banking Test Lab
+      </div>
+      <nav>
+        <a class="on" href="#">Accounts</a><a href="#">Transfer</a><a href="#">History</a
+        ><a href="#">Profile</a>
+      </nav>
+      <div class="env">Test environment</div>
+    </aside>
+    <main>
+      <section>
+        <p class="hello">Hi Ana, your total balance</p>
+        <p class="total num">$12,160.50</p>
+        <div class="actions">
+          <button class="btn primary">New transfer</button><button class="btn">Open account</button>
+        </div>
+        <h2>Recent movements</h2>
+        <div class="row num">
+          <span class="d">Nov 10</span
+          ><span><span class="chip c-y">Savings</span>Transfer to 0098765432</span
+          ><span class="amt neg">−$400.00</span>
+        </div>
+        <div class="row num">
+          <span class="d">Nov 9</span
+          ><span><span class="chip c-y">Savings</span>Salary recharge</span
+          ><span class="amt pos">+$3,200.00</span>
+        </div>
+        <div class="row num">
+          <span class="d">Nov 8</span
+          ><span><span class="chip c-y">Savings</span>Transfer from 0055501234</span
+          ><span class="amt pos">+$150.00</span>
+        </div>
+        <div class="row num">
+          <span class="d">Nov 6</span
+          ><span><span class="chip c-p">Checking</span>Cash recharge</span
+          ><span class="amt pos">+$500.00</span>
+        </div>
+        <div class="row num">
+          <span class="d">Nov 4</span
+          ><span><span class="chip c-p">Checking</span>Transfer to 0012345678</span
+          ><span class="amt neg">−$1,250.00</span>
+        </div>
+      </section>
+      <section class="accounts" aria-label="Accounts">
+        <h2>Your accounts</h2>
+        <article class="copy y num">
+          <span class="t">Savings</span><span class="n">0012345678</span
+          ><span class="v">$12,480.50</span>
+        </article>
+        <article class="copy p num">
+          <span class="t">Checking</span><span class="n">0012345679 · $5,000 overdraft</span
+          ><span class="v neg">−$320.00</span>
+        </article>
+        <article class="copy b num">
+          <span class="t">Savings</span><span class="n">0012345680</span
+          ><span class="v">$0.00</span>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

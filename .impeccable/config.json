@@ -1,0 +1,22 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [".impeccable/mocks/decision/annual-report.html"],
+        "createdAt": "2026-11-10T18:08:33.186Z",
+        "reason": "agent: header band children are vertically centered in a 64px bar; flush-edge reading is a false positive"
+      },
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": [".impeccable/mocks/decision/vault.html"],
+        "createdAt": "2026-11-10T18:08:33.199Z",
+        "reason": "agent: 8px joint grid is the direction's named raise (vault wall joints), not decoration"
+      }
+    ]
+  }
+}

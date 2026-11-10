@@ -118,6 +118,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
         </Field>
 
         <SubmitButton
+          size="lg"
           className="w-full"
           isPending={registerMutation.isPending}
           pendingText="Creating account..."

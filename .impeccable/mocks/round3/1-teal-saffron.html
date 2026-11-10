@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Teal &amp; Saffron · Banking Test Lab</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --teal: #0f5e5a;
+        --teal-2: #0b4b48;
+        --teal-soft: #e4f0ee;
+        --saffron: #f2a541;
+        --saffron-soft: #fdf1dc;
+        --ground: #f6f7f6;
+        --paper: #fff;
+        --ink: #1d2321;
+        --muted: #5b6461;
+        --line: #e3e7e5;
+        --pos: #1b7a4f;
+        --neg: #b8322a;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        min-width: 1280px;
+        min-height: 100vh;
+        font:
+          15px/1.5 Manrope,
+          system-ui,
+          sans-serif;
+        color: var(--ink);
+        background: var(--ground);
+        display: grid;
+        grid-template-columns: 240px 1fr;
+      }
+      .num {
+        font-variant-numeric: tabular-nums;
+      }
+      aside {
+        background: var(--teal);
+        color: #fff;
+        padding: 28px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 1.2;
+      }
+      .brand small {
+        display: block;
+        font-weight: 500;
+        font-size: 12px;
+        color: #b9d6d2;
+      }
+      nav {
+        display: grid;
+        gap: 2px;
+      }
+      nav a {
+        padding: 10px 14px;
+        border-radius: 8px;
+        color: #cfe3e0;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      nav a.on {
+        background: var(--teal-2);
+        color: #fff;
+        font-weight: 700;
+      }
+      .env {
+        margin-top: auto;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--ink);
+        background: var(--saffron);
+        border-radius: 6px;
+        padding: 6px 10px;
+        align-self: start;
+      }
+      main {
+        padding: 40px 56px;
+        display: grid;
+        gap: 28px;
+        align-content: start;
+        max-width: 1180px;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+      }
+      h1 {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      .sub {
+        color: var(--muted);
+      }
+      .btn {
+        font: 600 14px Manrope;
+        padding: 11px 18px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        color: var(--ink);
+        margin-left: 8px;
+      }
+      .btn.primary {
+        background: var(--teal);
+        border-color: var(--teal);
+        color: #fff;
+      }
+      .summary {
+        display: flex;
+        gap: 48px;
+        align-items: baseline;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 22px 28px;
+      }
+      .summary .l {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .summary .v {
+        font-size: 36px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      .summary .v2 {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .accounts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .acc {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 20px 22px;
+        display: grid;
+        gap: 10px;
+      }
+      .acc.sel {
+        border-color: var(--teal);
+        box-shadow: 0 0 0 3px var(--teal-soft);
+      }
+      .badge {
+        justify-self: start;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 999px;
+      }
+      .b-s {
+        background: var(--teal-soft);
+        color: var(--teal);
+      }
+      .b-c {
+        background: var(--saffron-soft);
+        color: #8a5a0b;
+      }
+      .acc .n {
+        color: var(--muted);
+        letter-spacing: 0.04em;
+      }
+      .acc .v {
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      .acc .m {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .card-h {
+        display: flex;
+        justify-content: space-between;
+        padding: 16px 22px;
+        border-bottom: 1px solid var(--line);
+      }
+      .card-h h2 {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .card-h span {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--muted);
+        text-align: left;
+        padding: 10px 22px;
+        background: #fafbfa;
+      }
+      td {
+        padding: 13px 22px;
+        border-top: 1px solid var(--line);
+      }
+      .r {
+        text-align: right;
+        font-weight: 600;
+      }
+      .pos {
+        color: var(--pos);
+      }
+      .neg {
+        color: var(--neg);
+      }
+    </style>
+  </head>
+  <body>
+    <aside>
+      <div class="brand">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+          <rect width="34" height="34" rx="9" fill="#fff" />
+          <path
+            d="M9 23V11h7a3.5 3.5 0 0 1 0 7H9m7 0h1.5a3 3 0 0 1 0 6H9"
+            fill="none"
+            stroke="#0f5e5a"
+            stroke-width="2.6"
+            stroke-linejoin="round"
+          />
+          <circle cx="25" cy="11" r="3" fill="#f2a541" />
+        </svg>
+        <div>Banking Test Lab<small>Personal banking</small></div>
+      </div>
+      <nav>
+        <a class="on" href="#">Accounts</a><a href="#">Transfer</a><a href="#">History</a
+        ><a href="#">Profile</a>
+      </nav>
+      <span class="env">Test environment</span>
+    </aside>
+    <main>
+      <header>
+        <div>
+          <h1>Welcome back, Ana</h1>
+          <p class="sub">Here is a summary of your accounts.</p>
+        </div>
+        <div>
+          <button class="btn">Open account</button><button class="btn primary">New transfer</button>
+        </div>
+      </header>
+      <section class="summary num">
+        <div>
+          <div class="l">Total balance</div>
+          <div class="v">$12,160.50</div>
+        </div>
+        <div>
+          <div class="l">Available incl. overdraft</div>
+          <div class="v2">$17,160.50</div>
+        </div>
+        <div>
+          <div class="l">Accounts</div>
+          <div class="v2">3</div>
+        </div>
+      </section>
+      <section class="accounts num" aria-label="Accounts">
+        <article class="acc sel">
+          <span class="badge b-s">Savings</span><span class="n">0012345678</span
+          ><span class="v">$12,480.50</span><span class="m">No overdraft</span>
+        </article>
+        <article class="acc">
+          <span class="badge b-c">Checking</span><span class="n">0012345679</span
+          ><span class="v neg">−$320.00</span><span class="m">Overdraft $320.00 of $5,000.00</span>
+        </article>
+        <article class="acc">
+          <span class="badge b-s">Savings</span><span class="n">0012345680</span
+          ><span class="v">$0.00</span><span class="m">No movements yet</span>
+        </article>
+      </section>
+      <section class="card">
+        <div class="card-h">
+          <h2>Recent movements</h2>
+          <span>Savings · 0012345678</span>
+        </div>
+        <table class="num">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th class="r">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Nov 10</td>
+              <td>Transfer to 0098765432</td>
+              <td>Transfer out</td>
+              <td class="r neg">−$400.00</td>
+            </tr>
+            <tr>
+              <td>Nov 9</td>
+              <td>Salary</td>
+              <td>Recharge</td>
+              <td class="r pos">+$3,200.00</td>
+            </tr>
+            <tr>
+              <td>Nov 8</td>
+              <td>Transfer from 0055501234</td>
+              <td>Transfer in</td>
+              <td class="r pos">+$150.00</td>
+            </tr>
+            <tr>
+              <td>Nov 6</td>
+              <td>Cash deposit</td>
+              <td>Recharge</td>
+              <td class="r pos">+$500.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </body>
+</html>

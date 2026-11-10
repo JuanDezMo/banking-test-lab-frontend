@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Indigo &amp; Tangerine · Banking Test Lab</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --indigo: #2c2f8f;
+        --indigo-2: #23266f;
+        --indigo-soft: #eceefb;
+        --tang: #ff7a45;
+        --tang-ink: #b4441a;
+        --tang-soft: #fff0e8;
+        --ground: #f7f7fa;
+        --paper: #fff;
+        --ink: #1c1d2b;
+        --muted: #5d6072;
+        --line: #e5e6ee;
+        --pos: #18794e;
+        --neg: #c22f3c;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        min-width: 1280px;
+        min-height: 100vh;
+        font:
+          15px/1.5 'Albert Sans',
+          system-ui,
+          sans-serif;
+        color: var(--ink);
+        background: var(--ground);
+      }
+      .num {
+        font-variant-numeric: tabular-nums;
+      }
+      .top {
+        background: var(--indigo);
+        color: #fff;
+        padding: 6px 0;
+      }
+      .bar {
+        max-width: 1200px;
+        margin: 0 auto;
+        height: 56px;
+        padding: 0 32px;
+        display: flex;
+        align-items: center;
+        gap: 40px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+      }
+      nav {
+        display: flex;
+        gap: 6px;
+      }
+      nav a {
+        padding: 8px 14px;
+        border-radius: 8px;
+        color: #c9cbf0;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      nav a.on {
+        background: var(--indigo-2);
+        color: #fff;
+      }
+      .right {
+        margin-left: auto;
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        font-size: 14px;
+        color: #dfe0f7;
+      }
+      .env {
+        background: var(--tang);
+        color: #2a1206;
+        font-weight: 600;
+        font-size: 12px;
+        padding: 5px 10px;
+        border-radius: 6px;
+      }
+      .hero {
+        background: var(--indigo);
+        color: #fff;
+        padding: 8px 0 72px;
+      }
+      .hero .in {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+      }
+      .hero p {
+        color: #c9cbf0;
+      }
+      .hero .v {
+        font-size: 44px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-top: 2px;
+      }
+      .btn {
+        font: 600 14px 'Albert Sans';
+        padding: 11px 18px;
+        border-radius: 8px;
+        border: 0;
+        background: #fff;
+        color: var(--indigo);
+        margin-left: 8px;
+      }
+      .btn.primary {
+        background: var(--tang);
+        color: #2a1206;
+      }
+      main {
+        max-width: 1200px;
+        margin: -48px auto 0;
+        padding: 0 32px 40px;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 24px;
+      }
+      .panel {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        box-shadow: 0 8px 24px -16px rgba(28, 29, 43, 0.25);
+      }
+      .accounts {
+        grid-column: 1/-1;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .acc {
+        padding: 22px 26px;
+        display: grid;
+        gap: 6px;
+        border-right: 1px solid var(--line);
+      }
+      .acc:last-child {
+        border: 0;
+      }
+      .acc .t {
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+      .acc .n {
+        color: var(--muted);
+        font-size: 13px;
+        letter-spacing: 0.04em;
+      }
+      .acc .v {
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .h {
+        display: flex;
+        justify-content: space-between;
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--line);
+      }
+      .h h2 {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .h a {
+        color: var(--indigo);
+        font-weight: 600;
+        font-size: 14px;
+        text-decoration: none;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 80px 1fr auto;
+        gap: 12px;
+        padding: 13px 24px;
+        border-bottom: 1px solid var(--line);
+      }
+      .row:last-child {
+        border: 0;
+      }
+      .row .d {
+        color: var(--muted);
+      }
+      .r {
+        font-weight: 600;
+      }
+      .pos {
+        color: var(--pos);
+      }
+      .neg {
+        color: var(--neg);
+      }
+      .quick {
+        padding: 22px 24px;
+        display: grid;
+        gap: 14px;
+      }
+      .quick label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--muted);
+      }
+      .field {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 10px 12px;
+        color: var(--muted);
+      }
+      .note {
+        font-size: 13px;
+        color: var(--tang-ink);
+        background: var(--tang-soft);
+        border-radius: 8px;
+        padding: 10px 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top">
+      <div class="bar">
+        <div class="brand">
+          <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="8" fill="#fff" />
+            <path
+              d="M8 22l6-6 4 4 6-8"
+              fill="none"
+              stroke="#2c2f8f"
+              stroke-width="2.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <circle cx="24" cy="12" r="2.6" fill="#ff7a45" /></svg
+          >Banking Test Lab
+        </div>
+        <nav>
+          <a class="on" href="#">Accounts</a><a href="#">Transfer</a><a href="#">History</a>
+        </nav>
+        <div class="right"><span class="env">Test environment</span><span>Ana Pérez</span></div>
+      </div>
+    </div>
+    <section class="hero">
+      <div class="in">
+        <div>
+          <p>Total balance · 3 accounts</p>
+          <p class="v num">$12,160.50</p>
+        </div>
+        <div>
+          <button class="btn">Open account</button><button class="btn primary">New transfer</button>
+        </div>
+      </div>
+    </section>
+    <main>
+      <section class="panel accounts num" aria-label="Accounts">
+        <article class="acc">
+          <span class="t"><i class="dot" style="background: #2c2f8f"></i>Savings</span
+          ><span class="n">0012345678</span><span class="v">$12,480.50</span>
+        </article>
+        <article class="acc">
+          <span class="t"><i class="dot" style="background: #ff7a45"></i>Checking</span
+          ><span class="n">0012345679 · overdraft $5,000</span><span class="v neg">−$320.00</span>
+        </article>
+        <article class="acc">
+          <span class="t"><i class="dot" style="background: #2c2f8f"></i>Savings</span
+          ><span class="n">0012345680</span><span class="v">$0.00</span>
+        </article>
+      </section>
+      <section class="panel">
+        <div class="h">
+          <h2>Recent movements</h2>
+          <a href="#">View all</a>
+        </div>
+        <div class="row num">
+          <span class="d">Nov 10</span><span>Transfer to 0098765432</span
+          ><span class="r neg">−$400.00</span>
+        </div>
+        <div class="row num">
+          <span class="d">Nov 9</span><span>Salary recharge</span
+          ><span class="r pos">+$3,200.00</span>
+        </div>
+        <div class="row num">
+          <span class="d">Nov 8</span><span>Transfer from 0055501234</span
+          ><span class="r pos">+$150.00</span>
+        </div>
+        <div class="row num">
+          <span class="d">Nov 6</span><span>Cash recharge · Checking</span
+          ><span class="r pos">+$500.00</span>
+        </div>
+      </section>
+      <section class="panel">
+        <div class="h"><h2>Quick transfer</h2></div>
+        <div class="quick">
+          <label>From</label>
+          <div class="field num">Savings · 0012345678</div>
+          <label>To account number</label>
+          <div class="field num">0098765432</div>
+          <label>Amount</label>
+          <div class="field num">$0.00</div>
+          <p class="note">Checking accounts can go down to −$5,000.00.</p>
+          <button class="btn primary" style="margin: 0">Review transfer</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

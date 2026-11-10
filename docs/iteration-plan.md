@@ -55,6 +55,17 @@ Nueve iteraciones cortas; cada una termina con una entrega funcional que el usua
 
 **Terminado cuando:** se ven todos los errores de F-01 y F-02 (400, 401, 409, 429) y un login exitoso devuelve tokens (aún sin guardarlos).
 
+## Iteración 1.5: diseño visual
+
+- [x] `PRODUCT.md` con usuarios, propósito, marca y accesibilidad (WCAG 2.2 AA)
+- [x] Dirección visual elegida (estilo neobanco): bocetos en `.impeccable/mocks/round5/`
+- [x] Tokens claro y oscuro en `src/index.css` (marca violeta `#5b3df5`, coral `#ff6b4a`, tinta `#121216`), tipografía Manrope
+- [x] Logo Banking Test Lab, aviso "Test environment" y tarjeta virtual (`components/shared`)
+- [x] `AuthLayout` (panel de marca + formulario) y `AppLayout` (sidebar en escritorio, pestañas en móvil)
+- [x] Login y registro adaptados al nuevo estilo
+
+**Terminado cuando:** login, registro y home se ven con el nuevo estilo en 390 y 1440 px.
+
 ## Iteración 2: sesión
 
 - [ ] `store/authStore.ts` (Zustand + `persist` en `sessionStorage`): tokens, usuario derivado del JWT (`sub`, `role`), `setSession`, `clear`

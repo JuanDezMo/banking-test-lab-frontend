@@ -3,15 +3,18 @@ import { routes } from '@/config/routes'
 import { HomePage } from '@/pages/HomePage'
 import { LoginPage } from '@/pages/LoginPage'
 import { RegisterPage } from '@/pages/RegisterPage'
-import { RootLayout } from './layouts/RootLayout'
+import { AppLayout } from './layouts/AppLayout'
+import { AuthLayout } from './layouts/AuthLayout'
 
-// Definición de rutas: cada ruta apunta a una página
+// Definición de rutas: cada layout agrupa las páginas que comparten estructura
 export const router = createBrowserRouter([
   {
-    path: routes.home,
-    element: <RootLayout />,
+    element: <AppLayout />,
+    children: [{ path: routes.home, element: <HomePage /> }],
+  },
+  {
+    element: <AuthLayout />,
     children: [
-      { index: true, element: <HomePage /> },
       { path: routes.login, element: <LoginPage /> },
       { path: routes.register, element: <RegisterPage /> },
     ],

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Flat Tiles · Banking Test Lab</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --magenta: #c8157a;
+        --cyan: #0079a8;
+        --lime: #8bc34a;
+        --ink: #111;
+        --muted: #5c5c5c;
+        --soft: #f4f4f4;
+        --pos: #2e7d32;
+        --neg: #c2185b;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        width: 1440px;
+        height: 900px;
+        overflow: hidden;
+        font:
+          16px/1.5 Figtree,
+          system-ui,
+          sans-serif;
+        color: var(--ink);
+        background: #fff;
+        padding: 36px 64px;
+      }
+      .num {
+        font-variant-numeric: tabular-nums;
+      }
+      .top {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+        margin-bottom: 28px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+      }
+      nav {
+        display: flex;
+        gap: 28px;
+        font-size: 18px;
+      }
+      nav a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+      nav a.on {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .env {
+        margin-left: auto;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--magenta);
+      }
+      .hero {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        margin-bottom: 28px;
+      }
+      .big {
+        font-size: 120px;
+        font-weight: 300;
+        letter-spacing: -0.04em;
+        line-height: 1;
+      }
+      .cap {
+        font-size: 20px;
+        color: var(--muted);
+        font-weight: 300;
+      }
+      .btn {
+        font: 600 16px Figtree;
+        padding: 14px 24px;
+        border: 0;
+        background: var(--soft);
+        color: var(--ink);
+        margin-left: 8px;
+      }
+      .btn.primary {
+        background: var(--magenta);
+        color: #fff;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 32px;
+      }
+      .tile {
+        height: 200px;
+        padding: 22px;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .tile.m {
+        background: var(--magenta);
+      }
+      .tile.c {
+        background: var(--cyan);
+      }
+      .tile.l {
+        background: var(--lime);
+        color: #14210a;
+      }
+      .tile .t {
+        font-size: 28px;
+        font-weight: 300;
+      }
+      .tile .v {
+        font-size: 36px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+      .tile .n {
+        letter-spacing: 0.08em;
+      }
+      h2 {
+        font-size: 32px;
+        font-weight: 300;
+        margin-bottom: 8px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 100px 1fr 160px;
+        padding: 12px 0;
+        font-size: 17px;
+      }
+      .row .d {
+        color: var(--muted);
+      }
+      .r {
+        text-align: right;
+        font-weight: 600;
+      }
+      .pos {
+        color: var(--pos);
+      }
+      .neg {
+        color: var(--neg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top">
+      <div class="brand">
+        <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+          <rect width="14" height="14" fill="#c8157a" />
+          <rect x="16" width="14" height="14" fill="#0079a8" />
+          <rect y="16" width="14" height="14" fill="#8bc34a" />
+          <rect x="16" y="16" width="14" height="14" fill="#111" /></svg
+        >banking test lab
+      </div>
+      <nav><a class="on" href="#">accounts</a><a href="#">transfer</a><a href="#">history</a></nav>
+      <span class="env">test environment</span>
+    </div>
+    <div class="hero">
+      <div>
+        <p class="cap">hi ana, you have</p>
+        <p class="big num">$12,160.50</p>
+      </div>
+      <div>
+        <button class="btn">Open account</button><button class="btn primary">New transfer</button>
+      </div>
+    </div>
+    <section class="grid" aria-label="Accounts">
+      <article class="tile m num">
+        <span class="t">savings</span><span class="v">$12,480.50</span
+        ><span class="n">0012345678</span>
+      </article>
+      <article class="tile c num">
+        <span class="t">checking</span><span class="v">−$320.00</span
+        ><span class="n">0012345679</span>
+      </article>
+      <article class="tile l num">
+        <span class="t">savings</span><span class="v">$0.00</span><span class="n">0012345680</span>
+      </article>
+    </section>
+    <h2>recent movements</h2>
+    <div class="row num">
+      <span class="d">Nov 10</span><span>Transfer to 0098765432</span
+      ><span class="r neg">−$400.00</span>
+    </div>
+    <div class="row num">
+      <span class="d">Nov 9</span><span>Salary recharge</span><span class="r pos">+$3,200.00</span>
+    </div>
+    <div class="row num">
+      <span class="d">Nov 8</span><span>Transfer from 0055501234</span
+      ><span class="r pos">+$150.00</span>
+    </div>
+  </body>
+</html>

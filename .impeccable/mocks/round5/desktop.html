@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Banking Test Lab · Desktop</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ground: #f2f2f5;
+        --paper: #fff;
+        --ink: #121216;
+        --ink-2: #1d1d24;
+        --muted: #62626e;
+        --line: #ececf1;
+        --violet: #5b3df5;
+        --violet-d: #4a2fe0;
+        --violet-soft: #efecff;
+        --coral: #ff6b4a;
+        --coral-soft: #fff0ec;
+        --pos: #0e7a4b;
+        --pos-soft: #e6f5ee;
+        --neg: #c93535;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      ::selection {
+        background: var(--violet);
+        color: #fff;
+      }
+      body {
+        min-width: 1280px;
+        min-height: 100vh;
+        font:
+          15px/1.5 Manrope,
+          system-ui,
+          sans-serif;
+        color: var(--ink);
+        background: var(--ground);
+        display: grid;
+        grid-template-columns: 232px 1fr;
+      }
+      .num {
+        font-variant-numeric: tabular-nums;
+      }
+      a,
+      button {
+        transition:
+          background-color 0.2s ease-out,
+          color 0.2s ease-out,
+          transform 0.2s ease-out;
+      }
+      :focus-visible {
+        outline: 2px solid var(--violet);
+        outline-offset: 3px;
+      }
+      aside {
+        padding: 28px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 16px;
+        letter-spacing: -0.01em;
+        padding: 0 10px;
+      }
+      nav {
+        display: grid;
+        gap: 4px;
+      }
+      nav a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 12px;
+        border-radius: 14px;
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      nav a:hover {
+        background: #e8e8ee;
+        color: var(--ink);
+      }
+      nav a.on {
+        background: var(--ink);
+        color: #fff;
+      }
+      nav svg {
+        width: 20px;
+        height: 20px;
+      }
+      .env {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--violet-d);
+        background: var(--violet-soft);
+        border-radius: 999px;
+        padding: 7px 12px;
+        align-self: start;
+      }
+      .env i {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--violet);
+      }
+      main {
+        padding: 24px 40px 48px 12px;
+        display: grid;
+        grid-template-columns: 1fr 352px;
+        gap: 24px;
+        align-content: start;
+        max-width: 1240px;
+      }
+      .top {
+        grid-column: 1/-1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .top h1 {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      .me {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 600;
+      }
+      .search {
+        width: 300px;
+        background: var(--paper);
+        border-radius: 999px;
+        padding: 10px 16px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--violet-d), #a3304f);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        font-size: 14px;
+      }
+      /* Hero oscuro con la tarjeta de la cuenta */
+      .hero {
+        grid-column: 1/-1;
+        background: var(--ink);
+        border-radius: 32px;
+        padding: 36px 40px;
+        color: #fff;
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 24px;
+        overflow: hidden;
+        position: relative;
+      }
+      .switch {
+        display: flex;
+        gap: 6px;
+      }
+      .switch button {
+        font: 700 13px Manrope;
+        border: 0;
+        border-radius: 999px;
+        padding: 7px 14px;
+        background: var(--ink-2);
+        color: #c9c9d6;
+        cursor: pointer;
+      }
+      .switch button.on {
+        background: #fff;
+        color: var(--ink);
+      }
+      .label {
+        color: #b9b9c8;
+        margin-top: 28px;
+        font-weight: 600;
+      }
+      .bal {
+        font-size: 72px;
+        font-weight: 800;
+        letter-spacing: -0.045em;
+        line-height: 1;
+        margin-top: 6px;
+      }
+      .bal small {
+        font-size: 34px;
+        color: #d6d6e0;
+      }
+      .delta {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+        margin-top: 14px;
+        font-weight: 700;
+        font-size: 13px;
+        color: #8fe3bb;
+        background: #173527;
+        border-radius: 999px;
+        padding: 5px 12px;
+      }
+      .actions {
+        display: flex;
+        gap: 26px;
+        margin-top: 32px;
+      }
+      .act {
+        display: grid;
+        justify-items: center;
+        gap: 8px;
+        font: 600 13px Manrope;
+        color: #fff;
+        background: none;
+        border: 0;
+        cursor: pointer;
+      }
+      .act span {
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        background: var(--ink-2);
+        display: grid;
+        place-items: center;
+        box-shadow: inset 0 0 0 1px #2e2e38;
+      }
+      .act:hover span {
+        background: var(--violet);
+      }
+      .act.primary span {
+        background: var(--violet);
+        box-shadow: none;
+      }
+      .act svg {
+        width: 22px;
+        height: 22px;
+      }
+      .stack {
+        position: relative;
+        height: 300px;
+      }
+      .vcard {
+        position: absolute;
+        width: 360px;
+        height: 226px;
+        border-radius: 22px;
+        padding: 22px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .vcard.back {
+        right: 0;
+        top: 18px;
+        transform: rotate(9deg);
+        background: linear-gradient(135deg, #ff8a6b, #ff6b4a 60%, #e2553a);
+        box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.6);
+      }
+      .vcard.front {
+        right: 44px;
+        top: 46px;
+        transform: rotate(-7deg);
+        color: #fff;
+        background: linear-gradient(150deg, #6b4dff 0%, #4a2fe0 45%, #2a1a9a 100%);
+        box-shadow:
+          0 30px 60px -20px rgba(0, 0, 0, 0.7),
+          inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      }
+      .vcard.front:before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 22px;
+        background: linear-gradient(
+          115deg,
+          transparent 35%,
+          rgba(255, 255, 255, 0.14) 50%,
+          transparent 65%
+        );
+      }
+      .vrow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+      }
+      .chip {
+        width: 40px;
+        height: 30px;
+        border-radius: 7px;
+        background: linear-gradient(135deg, #f6d7a7, #d7a95c);
+      }
+      .vnum {
+        font-size: 18px;
+        letter-spacing: 0.16em;
+        font-weight: 600;
+      }
+      .vtype {
+        font-weight: 700;
+      }
+      .dots {
+        position: absolute;
+        bottom: 0;
+        right: 150px;
+        display: flex;
+        gap: 6px;
+      }
+      .dots i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #3a3a46;
+      }
+      .dots i.on {
+        width: 22px;
+        border-radius: 999px;
+        background: #fff;
+      }
+      .panel {
+        background: var(--paper);
+        border-radius: 24px;
+        padding: 22px 24px;
+      }
+      .ph {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+      }
+      .ph h2 {
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+      }
+      .ph a {
+        color: var(--violet-d);
+        font-weight: 700;
+        font-size: 14px;
+        text-decoration: none;
+      }
+      .ph a:hover {
+        color: var(--ink);
+      }
+      .day {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--muted);
+        margin: 14px 0 2px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .tx {
+        display: grid;
+        grid-template-columns: 44px 1fr auto;
+        gap: 14px;
+        align-items: center;
+        padding: 10px 8px;
+        margin: 0 -8px;
+        border-radius: 14px;
+      }
+      .tx:hover {
+        background: #f7f7fa;
+      }
+      .ic {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+      }
+      .ic svg {
+        width: 20px;
+        height: 20px;
+      }
+      .i-out {
+        background: var(--coral-soft);
+        color: #b73d22;
+      }
+      .i-in {
+        background: var(--pos-soft);
+        color: var(--pos);
+      }
+      .i-rc {
+        background: var(--violet-soft);
+        color: var(--violet-d);
+      }
+      .tx b {
+        font-weight: 700;
+        display: block;
+      }
+      .tx small {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .amt {
+        font-weight: 800;
+        text-align: right;
+      }
+      .pos {
+        color: var(--pos);
+      }
+      .side {
+        display: grid;
+        gap: 24px;
+        align-content: start;
+      }
+      .insight .totals {
+        display: flex;
+        gap: 24px;
+        margin: 6px 0 16px;
+      }
+      .insight .totals b {
+        display: block;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      .insight .totals span {
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+      .bars {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        align-items: end;
+        height: 120px;
+      }
+      .wk {
+        display: flex;
+        gap: 4px;
+        align-items: end;
+        justify-content: center;
+        height: 100%;
+      }
+      .wk i {
+        width: 14px;
+        border-radius: 6px;
+      }
+      .wk .in {
+        background: var(--violet);
+      }
+      .wk .out {
+        background: var(--coral);
+      }
+      .wl {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 600;
+        margin-top: 8px;
+      }
+      .legend {
+        display: flex;
+        gap: 16px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--muted);
+        margin-top: 12px;
+      }
+      .legend i {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        margin-right: 6px;
+        vertical-align: -1px;
+      }
+      .people {
+        display: flex;
+        gap: 14px;
+        margin: 8px 0 14px;
+      }
+      .person {
+        display: grid;
+        justify-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--muted);
+      }
+      .person span {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        color: var(--ink);
+        background: var(--ground);
+      }
+      .person.add span {
+        border: 1.5px dashed #c5c5d0;
+        background: none;
+        color: var(--muted);
+      }
+      .field {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--ground);
+        border-radius: 16px;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+      }
+      .field small {
+        display: block;
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+      .field b {
+        font-size: 18px;
+        font-weight: 800;
+      }
+      .btn {
+        width: 100%;
+        font: 800 15px Manrope;
+        padding: 15px;
+        border-radius: 999px;
+        border: 0;
+        background: var(--ink);
+        color: #fff;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background: var(--violet-d);
+      }
+    </style>
+  </head>
+  <body>
+    <aside>
+      <div class="brand">
+        <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="10" fill="#121216" />
+          <path
+            d="M10 22V10h6.5a3 3 0 0 1 0 6H10m6.5 0H18a3 3 0 0 1 0 6h-8"
+            fill="none"
+            stroke="#fff"
+            stroke-width="2.5"
+            stroke-linejoin="round"
+          />
+          <circle cx="24" cy="10" r="3" fill="#ff6b4a" /></svg
+        >Banking Test Lab
+      </div>
+      <nav aria-label="Main navigation">
+        <a class="on" href="#" aria-current="page"
+          ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 10l9-6 9 6v10H3z" /></svg
+          >Home</a
+        >
+        <a href="#"
+          ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 8h13l-3-3M20 16H7l3 3" /></svg
+          >Transfers</a
+        >
+        <a href="#"
+          ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="6" width="18" height="13" rx="3" />
+            <path d="M3 10h18" /></svg
+          >Accounts</a
+        >
+        <a href="#"
+          ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 7v5l3 2" />
+            <circle cx="12" cy="12" r="9" /></svg
+          >History</a
+        >
+      </nav>
+      <span class="env"><i></i>Test environment</span>
+    </aside>
+    <main>
+      <div class="top">
+        <h1>Good morning, Ana</h1>
+        <div class="me">
+          <div class="search">Search movements</div>
+          <div class="avatar">AP</div>
+        </div>
+      </div>
+
+      <section class="hero num" aria-label="Selected account">
+        <div>
+          <div class="switch">
+            <button class="on">Savings</button><button>Checking</button><button>Savings 2</button>
+          </div>
+          <p class="label">Savings balance · 0012345678</p>
+          <p class="bal">$12,480<small>.50</small></p>
+          <span class="delta">▲ +$2,650.00 this month</span>
+          <div class="actions">
+            <button class="act primary">
+              <span
+                ><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2">
+                  <path d="M5 12h14M13 6l6 6-6 6" /></svg></span
+              >Transfer
+            </button>
+            <button class="act">
+              <span
+                ><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2">
+                  <path d="M12 5v14M5 12h14" /></svg></span
+              >Add account
+            </button>
+            <button class="act">
+              <span
+                ><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2">
+                  <rect x="4" y="5" width="16" height="14" rx="3" />
+                  <path d="M8 10h8M8 14h5" /></svg></span
+              >Details
+            </button>
+            <button class="act">
+              <span
+                ><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2">
+                  <path d="M12 7v5l3 2" />
+                  <circle cx="12" cy="12" r="8" /></svg></span
+              >History
+            </button>
+          </div>
+        </div>
+        <div class="stack" aria-hidden="true">
+          <div class="vcard back"></div>
+          <div class="vcard front">
+            <div class="vrow">
+              <span class="vtype">Savings</span
+              ><svg width="30" height="30" viewBox="0 0 32 32">
+                <path
+                  d="M10 22V10h6.5a3 3 0 0 1 0 6H10m6.5 0H18a3 3 0 0 1 0 6h-8"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-width="2.5"
+                  stroke-linejoin="round"
+                />
+                <circle cx="24" cy="10" r="3" fill="#ff6b4a" />
+              </svg>
+            </div>
+            <div class="vrow"><span class="chip"></span></div>
+            <div class="vrow">
+              <span class="vnum">0012 345 678</span><span style="font-weight: 700">Ana Pérez</span>
+            </div>
+          </div>
+          <div class="dots"><i class="on"></i><i></i><i></i></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="ph">
+          <h2>Transactions</h2>
+          <a href="#">See all</a>
+        </div>
+        <p class="day">Today</p>
+        <div class="tx num">
+          <span class="ic i-out"
+            ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M7 17L17 7M9 7h8v8" /></svg></span
+          ><span><b>To 0098765432</b><small>10:42 · Transfer out</small></span
+          ><span class="amt">−$400.00</span>
+        </div>
+        <p class="day">Nov 9</p>
+        <div class="tx num">
+          <span class="ic i-rc"
+            ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="3" y="6" width="18" height="12" rx="3" />
+              <circle cx="12" cy="12" r="2.5" /></svg></span
+          ><span><b>Salary</b><small>08:00 · Recharge</small></span
+          ><span class="amt pos">+$3,200.00</span>
+        </div>
+        <p class="day">Nov 8</p>
+        <div class="tx num">
+          <span class="ic i-in"
+            ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M17 7L7 17M15 17H7V9" /></svg></span
+          ><span><b>From 0055501234</b><small>19:15 · Transfer in</small></span
+          ><span class="amt pos">+$150.00</span>
+        </div>
+        <div class="tx num">
+          <span class="ic i-rc"
+            ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="3" y="6" width="18" height="12" rx="3" />
+              <circle cx="12" cy="12" r="2.5" /></svg></span
+          ><span><b>Cash deposit</b><small>11:20 · Recharge</small></span
+          ><span class="amt pos">+$500.00</span>
+        </div>
+      </section>
+
+      <section class="side">
+        <div class="panel insight num">
+          <div class="ph">
+            <h2>November</h2>
+            <a href="#">Details</a>
+          </div>
+          <div class="totals">
+            <div><span>Money in</span><b class="pos">+$3,850.00</b></div>
+            <div><span>Money out</span><b>−$1,650.00</b></div>
+          </div>
+          <div class="bars" role="img" aria-label="Money in and out per week">
+            <div class="wk">
+              <i class="in" style="height: 20%"></i><i class="out" style="height: 60%"></i>
+            </div>
+            <div class="wk">
+              <i class="in" style="height: 35%"></i><i class="out" style="height: 10%"></i>
+            </div>
+            <div class="wk">
+              <i class="in" style="height: 100%"></i><i class="out" style="height: 25%"></i>
+            </div>
+            <div class="wk">
+              <i class="in" style="height: 12%"></i><i class="out" style="height: 30%"></i>
+            </div>
+          </div>
+          <div class="wl"><span>W1</span><span>W2</span><span>W3</span><span>W4</span></div>
+          <div class="legend">
+            <span><i style="background: #5b3df5"></i>In</span
+            ><span><i style="background: #ff6b4a"></i>Out</span>
+          </div>
+        </div>
+        <div class="panel num">
+          <div class="ph"><h2>Quick transfer</h2></div>
+          <div class="people">
+            <div class="person"><span>98</span>…5432</div>
+            <div class="person"><span>55</span>…1234</div>
+            <div class="person"><span>79</span>…5679</div>
+            <div class="person add"><span>+</span>New</div>
+          </div>
+          <div class="field">
+            <span><small>From</small>Savings ·5678</span><b>$12,480.50</b>
+          </div>
+          <div class="field">
+            <span><small>Amount</small><b>$250.00</b></span>
+          </div>
+          <button class="btn">Review transfer</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
