@@ -4,7 +4,17 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bank Lab</title>
+    <title>Banking Test Lab</title>
+    <script>
+      // Aplica el tema guardado antes de pintar, para evitar un destello claro
+      try {
+        var theme = localStorage.getItem('btl-theme') || 'system'
+        var dark =
+          theme === 'dark' ||
+          (theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches)
+        if (dark) document.documentElement.classList.add('dark')
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

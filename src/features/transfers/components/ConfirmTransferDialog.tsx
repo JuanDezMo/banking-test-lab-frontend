@@ -82,7 +82,11 @@ export function ConfirmTransferDialog({
         )}
 
         {errorMessage && (
-          <ErrorAlert title="The transfer was not completed" testId="transfer-error-alert">
+          <ErrorAlert
+            title="The transfer was not completed"
+            align="center"
+            testId="transfer-error-alert"
+          >
             {errorMessage}
           </ErrorAlert>
         )}

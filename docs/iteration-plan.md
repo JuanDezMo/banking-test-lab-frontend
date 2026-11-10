@@ -58,7 +58,7 @@ Nueve iteraciones cortas; cada una termina con una entrega funcional que el usua
 ## Iteración 1.5: diseño visual
 
 - [x] `PRODUCT.md` con usuarios, propósito, marca y accesibilidad (WCAG 2.2 AA)
-- [x] Dirección visual elegida (estilo neobanco): bocetos en `.impeccable/mocks/round5/`
+- [x] Dirección visual elegida (estilo neobanco); contrato en `.impeccable/surfaces/` (los bocetos son locales, no se versionan)
 - [x] Tokens claro y oscuro en `src/index.css` (marca violeta `#5b3df5`, coral `#ff6b4a`, tinta `#121216`), tipografía Manrope
 - [x] Logo Banking Test Lab, aviso "Test environment" y tarjeta virtual (`components/shared`)
 - [x] `AuthLayout` (panel de marca + formulario) y `AppLayout` (sidebar en escritorio, pestañas en móvil)

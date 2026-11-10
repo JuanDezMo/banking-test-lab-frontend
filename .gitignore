@@ -25,3 +25,9 @@ dist-ssr
 
 # Coverage
 coverage
+
+# Impeccable (skill de diseño): solo se versionan config.json y surfaces/
+# (PRODUCT.md está en la raíz). Capturas, bocetos, rondas y caché son locales.
+.impeccable/*
+!.impeccable/config.json
+!.impeccable/surfaces/

@@ -20,12 +20,15 @@ export function Providers({ children }: ProvidersProps) {
   )
 
   return (
-    // El tema se guarda en localStorage (btl-theme) y se aplica con la clase .dark en <html>
+    // El tema se guarda en localStorage (btl-theme) y se aplica con la clase .dark en <html>.
+    // El script anti-parpadeo de next-themes no se ejecuta en una SPA (React no ejecuta
+    // <script>), por eso se desactiva aquí y el tema inicial lo aplica index.html.
     <ThemeProvider
       attribute="class"
       defaultTheme="system"
       enableSystem
       storageKey="btl-theme"
+      scriptProps={{ type: 'application/json' }}
       disableTransitionOnChange
     >
       <QueryClientProvider client={queryClient}>
