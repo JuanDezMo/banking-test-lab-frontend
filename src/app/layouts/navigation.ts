@@ -14,10 +14,12 @@ export type NavItem = {
   to: string
   icon: LucideIcon
   testId: string
+  // true: solo activo en la ruta exacta (Home); false: también en subrutas (/accounts/:id)
+  end?: boolean
 }
 
 const guestItems: NavItem[] = [
-  { label: 'Home', to: routes.home, icon: HomeIcon, testId: 'nav-home' },
+  { label: 'Home', to: routes.home, icon: HomeIcon, testId: 'nav-home', end: true },
   { label: 'Sign in', to: routes.login, icon: LogInIcon, testId: 'nav-login' },
   { label: 'Sign up', to: routes.register, icon: UserPlusIcon, testId: 'nav-register' },
 ]

@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router'
 import { routes } from '@/config/routes'
+import { AccountDetailPage } from '@/pages/AccountDetailPage'
 import { AccountsPage } from '@/pages/AccountsPage'
 import { HomePage } from '@/pages/HomePage'
 import { LoginPage } from '@/pages/LoginPage'
@@ -20,7 +21,10 @@ export const router = createBrowserRouter([
       // Cliente
       {
         element: <ProtectedRoute roles={['customer']} />,
-        children: [{ path: routes.accounts, element: <AccountsPage /> }],
+        children: [
+          { path: routes.accounts, element: <AccountsPage /> },
+          { path: routes.accountDetail, element: <AccountDetailPage /> },
+        ],
       },
       // Operador
       {

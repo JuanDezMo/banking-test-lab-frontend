@@ -1,9 +1,11 @@
 import { ArrowRightIcon, FileTextIcon, PlusIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
+import { Link } from 'react-router'
 import { CopyButton } from '@/components/shared/CopyButton'
 import { MoneyText } from '@/components/shared/MoneyText'
 import { VirtualCard } from '@/components/shared/VirtualCard'
 import { limits } from '@/config/limits'
+import { accountPath } from '@/config/routes'
 import { formatAccountNumber } from '@/lib/format'
 import { cn } from '@/lib/utils'
 import { availableBalance } from '../balance'
@@ -31,31 +33,58 @@ type HeroActionProps = {
   disabled?: boolean
   title?: string
   testId: string
+  // Si se indica, la acción es un enlace de navegación
+  to?: string
   onClick?: () => void
 }
 
+const actionClass =
+  'hero-action group grid justify-items-center gap-2 text-[13px] font-semibold text-inverse-foreground disabled:cursor-not-allowed disabled:opacity-50'
+
 // Acción circular del bloque principal (ícono + texto)
-function HeroAction({ label, icon, primary, disabled, title, testId, ...props }: HeroActionProps) {
+function HeroAction({
+  label,
+  icon,
+  primary,
+  disabled,
+  title,
+  testId,
+  to,
+  ...props
+}: HeroActionProps) {
+  const circle = (
+    <span
+      className={cn(
+        'grid size-13 place-items-center rounded-full transition-colors [&_svg]:size-[22px]',
+        primary
+          ? 'bg-brand group-enabled:group-hover:bg-brand-strong group-[a]:group-hover:bg-brand-strong'
+          : 'bg-inverse-raised ring-1 ring-white/10 group-enabled:group-hover:bg-brand group-[a]:group-hover:bg-brand',
+      )}
+      aria-hidden="true"
+    >
+      {icon}
+    </span>
+  )
+
+  if (to) {
+    return (
+      <Link to={to} title={title} data-testid={testId} className={actionClass}>
+        {circle}
+        {label}
+      </Link>
+    )
+  }
+
   return (
     <button
       type="button"
       disabled={disabled}
       title={title}
       data-testid={testId}
-      className="hero-action group grid justify-items-center gap-2 text-[13px] font-semibold text-inverse-foreground disabled:cursor-not-allowed disabled:opacity-50"
+      className={actionClass}
       {...props}
     >
-      <span
-        className={cn(
-          'grid size-13 place-items-center rounded-full transition-colors [&_svg]:size-[22px]',
-          primary
-            ? 'bg-brand group-enabled:group-hover:bg-brand-strong'
-            : 'bg-inverse-raised ring-1 ring-white/10 group-enabled:group-hover:bg-brand',
-        )}
-        aria-hidden="true"
-      >
-        {icon}
-      </span>
+      {circle}
       {label}
     </button>
   )
@@ -166,9 +195,8 @@ export function AccountHero({ accounts, selected, onSelect }: AccountHeroProps) 
           <HeroAction
             label="Details"
             icon={<FileTextIcon />}
-            disabled
-            title="Account details arrive in a next version"
-            testId="hero-details-button"
+            to={accountPath(selected.id)}
+            testId="hero-details-link"
           />
         </div>
       </div>

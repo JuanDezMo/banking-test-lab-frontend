@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useSearchParams } from 'react-router'
 import { AccountHero } from '@/features/accounts/components/AccountHero'
 import { AccountList } from '@/features/accounts/components/AccountList'
@@ -7,6 +8,7 @@ import {
   AccountsSkeleton,
 } from '@/features/accounts/components/AccountsStates'
 import { useAccounts } from '@/features/accounts/hooks/useAccounts'
+import { RecentMovements } from '@/features/movements/components/RecentMovements'
 import type { Account } from '@/features/accounts/types'
 import { selectUser, useAuthStore } from '@/store/authStore'
 
@@ -60,11 +62,15 @@ type AccountsContentProps = {
 function AccountsContent({ accounts, selectedId, onSelect }: AccountsContentProps) {
   // Si el id de la URL no existe (o no hay), se muestra la primera cuenta
   const selected = accounts.find((a) => a.id === selectedId) ?? accounts[0]!
+  const lookup = useMemo(() => new Map(accounts.map((a) => [a.id, a.accountNumber])), [accounts])
 
   return (
     <>
       <AccountHero accounts={accounts} selected={selected} onSelect={onSelect} />
-      <AccountList accounts={accounts} selectedId={selected.id} onSelect={onSelect} />
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
+        <RecentMovements accountId={selected.id} lookup={lookup} />
+        <AccountList accounts={accounts} selectedId={selected.id} onSelect={onSelect} />
+      </div>
     </>
   )
 }

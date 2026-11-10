@@ -21,11 +21,11 @@ export function AppLayout() {
         <BrandLogo className="px-2.5" />
         <nav aria-label="Main navigation">
           <ul className="grid gap-1">
-            {navItems.map(({ label, to, icon: Icon, testId }) => (
+            {navItems.map(({ label, to, icon: Icon, testId, end }) => (
               <li key={to}>
                 <NavLink
                   to={to}
-                  end
+                  end={end}
                   data-testid={testId}
                   className={({ isActive }) =>
                     cn(
@@ -74,11 +74,11 @@ export function AppLayout() {
         data-testid="app-tabbar"
       >
         <ul className="flex justify-around pt-2.5">
-          {navItems.map(({ label, to, icon: Icon, testId }) => (
+          {navItems.map(({ label, to, icon: Icon, testId, end }) => (
             <li key={to}>
               <NavLink
                 to={to}
-                end
+                end={end}
                 data-testid={`tab-${testId}`}
                 className={({ isActive }) =>
                   cn(

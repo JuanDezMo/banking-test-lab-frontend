@@ -96,14 +96,14 @@ Nueve iteraciones cortas; cada una termina con una entrega funcional que el usua
 
 ## Iteración 4: detalle e historial
 
-- [ ] Ruta `/accounts/:id`; `useAccount(id)` con 400 y 404 como estado "Account not found"
-- [ ] `features/movements`: tipo `Movement` como unión discriminada por `movementType`
-- [ ] `movementApi.list(accountId, page)` y `useMovements` con `placeholderData` para paginar sin parpadeo
-- [ ] Página en la URL (`?page=2`) con `useSearchParams`
-- [ ] `MovementsTable` (escritorio) y `MovementsList` de tarjetas (móvil)
-- [ ] Signo y color por tipo: `recharge` y `transfer_in` suman, `transfer_out` resta
-- [ ] `components/shared/Pagination.tsx`: anterior deshabilitado en página 1, siguiente deshabilitado si llegan menos de 20
-- [ ] Fechas ISO UTC formateadas con date-fns en hora local
+- [x] Ruta `/accounts/:id`; `useAccount(id)` con 400 y 404 como estado "Account not found"
+- [x] `features/movements`: tipo `Movement` como unión discriminada por `movementType`
+- [x] `movementApi.list(accountId, page)` y `useMovements` con `placeholderData` para paginar sin parpadeo
+- [x] Página en la URL (`?page=2`) con `useSearchParams`
+- [x] `MovementsTable` (escritorio) y `MovementsList` de tarjetas (móvil)
+- [x] Signo y color por tipo: `recharge` y `transfer_in` suman, `transfer_out` resta
+- [x] `components/shared/Pagination.tsx`: anterior deshabilitado en página 1, siguiente deshabilitado si llegan menos de 20
+- [x] Fechas ISO UTC formateadas con date-fns en hora local
 
 **Terminado cuando:** el historial pagina de 20 en 20, la URL conserva la página y una cuenta ajena muestra "Account not found".
 

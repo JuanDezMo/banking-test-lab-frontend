@@ -17,6 +17,16 @@ export function useAccounts() {
   })
 }
 
+// Una cuenta por id (F-07). 400 y 404 no se reintentan: el resultado no cambiará.
+export function useAccount(id: string | undefined) {
+  return useQuery<Account, ApiError>({
+    queryKey: accountKeys.detail(id ?? ''),
+    queryFn: () => accountService.getById(id!),
+    enabled: Boolean(id),
+    retry: (failureCount, error) => ![400, 404].includes(error.status) && failureCount < 1,
+  })
+}
+
 // Crear cuenta (F-05): al terminar invalida la lista para volver a pedirla
 export function useCreateAccount() {
   const queryClient = useQueryClient()
