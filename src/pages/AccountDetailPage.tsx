@@ -4,7 +4,7 @@ import { Link, useParams, useSearchParams } from 'react-router'
 import { ErrorAlert } from '@/components/shared/ErrorAlert'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
-import { accountPath, routes } from '@/config/routes'
+import { accountPath, operatorAccountPath, routes } from '@/config/routes'
 import { AccountDetailHeader } from '@/features/accounts/components/AccountDetailHeader'
 import { useAccount, useAccounts } from '@/features/accounts/hooks/useAccounts'
 import { MovementsSection } from '@/features/movements/components/MovementsSection'
@@ -18,15 +18,26 @@ function parsePage(value: string | null): number | null {
   return page >= 1 && page <= 10_000 ? page : null
 }
 
+type AccountDetailPageProps = {
+  // operator: cualquier cuenta, sin transferir ni lista de cuentas propias
+  view?: 'customer' | 'operator'
+}
+
 // Detalle de cuenta (F-07) con su historial paginado (F-10)
-export function AccountDetailPage() {
+export function AccountDetailPage({ view = 'customer' }: AccountDetailPageProps) {
+  const isOperator = view === 'operator'
+  const backTo = isOperator ? routes.operator : routes.accounts
+  const backLabel = isOperator ? 'Back to operations' : 'Back to accounts'
+  const firstPagePath = (accountId: string) =>
+    isOperator ? operatorAccountPath(accountId) : accountPath(accountId)
+
   const { id } = useParams<{ id: string }>()
   const [searchParams, setSearchParams] = useSearchParams()
   const page = parsePage(searchParams.get('page'))
 
   const account = useAccount(id)
   // Cuentas propias: permiten mostrar el número de la contraparte en transferencias
-  const accounts = useAccounts()
+  const accounts = useAccounts({ enabled: !isOperator })
   const lookup = useMemo(
     () => new Map((accounts.data ?? []).map((a) => [a.id, a.accountNumber])),
     [accounts.data],
@@ -43,12 +54,12 @@ export function AccountDetailPage() {
   return (
     <div className="account-detail-page grid gap-6" data-testid="account-detail-page">
       <Link
-        to={routes.accounts}
+        to={backTo}
         className="inline-flex items-center gap-2 justify-self-start rounded-full px-1 font-bold text-muted-foreground hover:text-foreground"
         data-testid="back-to-accounts-link"
       >
         <ArrowLeftIcon className="size-4" aria-hidden="true" />
-        Back to accounts
+        {backLabel}
       </Link>
 
       {account.isPending && (
@@ -71,7 +82,7 @@ export function AccountDetailPage() {
             This account does not exist or you do not have access to it.
           </p>
           <Button asChild className="mt-2">
-            <Link to={routes.accounts}>Go to your accounts</Link>
+            <Link to={backTo}>{isOperator ? 'Back to operations' : 'Go to your accounts'}</Link>
           </Button>
         </section>
       )}
@@ -84,11 +95,11 @@ export function AccountDetailPage() {
 
       {account.data && (
         <>
-          <AccountDetailHeader account={account.data} />
+          <AccountDetailHeader account={account.data} showTransfer={!isOperator} />
           {page === null ? (
             <ErrorAlert title="Invalid page" testId="invalid-page-alert">
               The page number in the address is not valid.{' '}
-              <Link to={accountPath(account.data.id)} className="font-bold underline">
+              <Link to={firstPagePath(account.data.id)} className="font-bold underline">
                 Go to the first page
               </Link>
             </ErrorAlert>

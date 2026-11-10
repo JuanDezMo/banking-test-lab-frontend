@@ -31,7 +31,10 @@ export const router = createBrowserRouter([
       // Operador
       {
         element: <ProtectedRoute roles={['operator']} />,
-        children: [{ path: routes.operator, element: <OperatorPage /> }],
+        children: [
+          { path: routes.operator, element: <OperatorPage /> },
+          { path: routes.operatorAccount, element: <AccountDetailPage view="operator" /> },
+        ],
       },
     ],
   },

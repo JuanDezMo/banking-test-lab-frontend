@@ -123,12 +123,12 @@ Nueve iteraciones cortas; cada una termina con una entrega funcional que el usua
 
 ## Iteración 6: operador
 
-- [ ] Layout y navegación propios del rol `operator` (`/operator`)
-- [ ] `features/recharge`: types, `rechargeApi.create(dto, idempotencyKey)`, `rechargeService`
-- [ ] `RechargeForm`: número de cuenta, monto y tipo (`cash`, `employer_bonus`, `salary`); aviso de tope de 3.000,00 si es `cash`
-- [ ] Errores: `CASH_LIMIT_EXCEEDED`, `DAILY_RECHARGE_COUNT_EXCEEDED`, `DAILY_RECHARGE_AMOUNT_EXCEEDED`, `BALANCE_LIMIT_EXCEEDED`, `NOT_FOUND`, `IDEMPOTENCY_*`
-- [ ] Consulta de cuenta por id y su historial, reutilizando los componentes de la iteración 4
-- [ ] Ocultar al operador las acciones de customer (crear cuenta, transferir)
+- [x] Layout y navegación propios del rol `operator` (`/operator`)
+- [x] `features/recharge`: types, `rechargeApi.create(dto, idempotencyKey)`, `rechargeService`
+- [x] `RechargeForm`: número de cuenta, monto y tipo (`cash`, `employer_bonus`, `salary`); aviso de tope de 3.000,00 si es `cash`
+- [x] Errores: `CASH_LIMIT_EXCEEDED`, `DAILY_RECHARGE_COUNT_EXCEEDED`, `DAILY_RECHARGE_AMOUNT_EXCEEDED`, `BALANCE_LIMIT_EXCEEDED`, `NOT_FOUND`, `IDEMPOTENCY_*`
+- [x] Consulta de cuenta por id y su historial, reutilizando los componentes de la iteración 4
+- [x] Ocultar al operador las acciones de customer (crear cuenta, transferir)
 
 **Terminado cuando:** el operador recarga, ve el movimiento creado y cada error de F-08 se muestra.
 

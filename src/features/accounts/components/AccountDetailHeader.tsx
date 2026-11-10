@@ -13,10 +13,12 @@ import { accountTypeLabels, type Account } from '../types'
 
 type AccountDetailHeaderProps = {
   account: Account
+  // false en la vista del operador: solo el cliente puede transferir (RN-23)
+  showTransfer?: boolean
 }
 
 // Cabecera del detalle: tipo, número, saldo, disponible y fecha de apertura
-export function AccountDetailHeader({ account }: AccountDetailHeaderProps) {
+export function AccountDetailHeader({ account, showTransfer = true }: AccountDetailHeaderProps) {
   const overdraft = limits.overdraft[account.accountType]
 
   return (
@@ -77,18 +79,20 @@ export function AccountDetailHeader({ account }: AccountDetailHeaderProps) {
           </div>
         </dl>
 
-        <Button
-          asChild
-          variant="brand"
-          size="lg"
-          className="mt-7"
-          data-testid="detail-transfer-link"
-        >
-          <Link to={transferPath(account.id)}>
-            Transfer from this account
-            <ArrowRightIcon aria-hidden="true" />
-          </Link>
-        </Button>
+        {showTransfer && (
+          <Button
+            asChild
+            variant="brand"
+            size="lg"
+            className="mt-7"
+            data-testid="detail-transfer-link"
+          >
+            <Link to={transferPath(account.id)}>
+              Transfer from this account
+              <ArrowRightIcon aria-hidden="true" />
+            </Link>
+          </Button>
+        )}
       </div>
 
       <div className="mx-auto hidden w-full max-w-xs sm:block" aria-hidden="true">

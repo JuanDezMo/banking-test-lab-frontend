@@ -9,11 +9,12 @@ export const accountKeys = {
   detail: (id: string) => ['accounts', id] as const,
 }
 
-// Lista de cuentas del cliente (F-06)
-export function useAccounts() {
+// Lista de cuentas del cliente (F-06). enabled: false para el operador (la API responde 403)
+export function useAccounts({ enabled = true }: { enabled?: boolean } = {}) {
   return useQuery<Account[], ApiError>({
     queryKey: accountKeys.all,
     queryFn: () => accountService.list(),
+    enabled,
   })
 }
 
