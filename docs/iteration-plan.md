@@ -109,15 +109,15 @@ Nueve iteraciones cortas; cada una termina con una entrega funcional que el usua
 
 ## Iteración 5: transferencias
 
-- [ ] `features/transfers`: types, `transferApi.create(dto, idempotencyKey)`, `transferService`
-- [ ] Zod: origen y destino de 10 dígitos, distintos, monto > 0 y ≤ 10.000.000.000,00
-- [ ] `TransferForm`: origen con `Select` de mis cuentas (muestra saldo disponible + sobregiro), destino como texto
-- [ ] Diálogo de confirmación con resumen antes de enviar
-- [ ] `Idempotency-Key` generado al abrir la confirmación y reutilizado si el usuario reintenta tras un error de red
-- [ ] Botón deshabilitado mientras `isPending` (evita doble envío)
-- [ ] Errores: `INSUFFICIENT_FUNDS`, `Cannot transfer to the same account`, `NOT_FOUND`, `IDEMPOTENCY_*`, `BALANCE_LIMIT_EXCEEDED`
-- [ ] Éxito: toast, invalidar `accounts` y `movements`, redirigir al detalle del origen
-- [ ] Acceso desde el dashboard y desde el detalle de cuenta (origen preseleccionado)
+- [x] `features/transfers`: types, `transferApi.create(dto, idempotencyKey)`, `transferService`
+- [x] Zod: origen y destino de 10 dígitos, distintos, monto > 0 y ≤ 10.000.000.000,00
+- [x] `TransferForm`: origen con `Select` de mis cuentas (muestra saldo disponible + sobregiro), destino como texto
+- [x] Diálogo de confirmación con resumen antes de enviar
+- [x] `Idempotency-Key` generado al abrir la confirmación y reutilizado si el usuario reintenta tras un error de red
+- [x] Botón deshabilitado mientras `isPending` (evita doble envío)
+- [x] Errores: `INSUFFICIENT_FUNDS`, `Cannot transfer to the same account`, `NOT_FOUND`, `IDEMPOTENCY_*`, `BALANCE_LIMIT_EXCEEDED`
+- [x] Éxito: toast, invalidar `accounts` y `movements`, redirigir al detalle del origen
+- [x] Acceso desde el dashboard y desde el detalle de cuenta (origen preseleccionado)
 
 **Terminado cuando:** una transferencia actualiza ambos saldos, aparece en el historial y cada error de F-09 se muestra en la UI.
 

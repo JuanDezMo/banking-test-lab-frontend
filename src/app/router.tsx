@@ -6,6 +6,7 @@ import { HomePage } from '@/pages/HomePage'
 import { LoginPage } from '@/pages/LoginPage'
 import { OperatorPage } from '@/pages/OperatorPage'
 import { RegisterPage } from '@/pages/RegisterPage'
+import { TransferPage } from '@/pages/TransferPage'
 import { GuestRoute } from './guards/GuestRoute'
 import { ProtectedRoute } from './guards/ProtectedRoute'
 import { AppLayout } from './layouts/AppLayout'
@@ -24,6 +25,7 @@ export const router = createBrowserRouter([
         children: [
           { path: routes.accounts, element: <AccountsPage /> },
           { path: routes.accountDetail, element: <AccountDetailPage /> },
+          { path: routes.transfer, element: <TransferPage /> },
         ],
       },
       // Operador

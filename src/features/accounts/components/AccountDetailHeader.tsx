@@ -1,6 +1,10 @@
+import { ArrowRightIcon } from 'lucide-react'
+import { Link } from 'react-router'
 import { CopyButton } from '@/components/shared/CopyButton'
 import { MoneyText } from '@/components/shared/MoneyText'
 import { VirtualCard } from '@/components/shared/VirtualCard'
+import { Button } from '@/components/ui/button'
+import { transferPath } from '@/config/routes'
 import { limits } from '@/config/limits'
 import { formatDateTime } from '@/lib/date'
 import { formatAccountNumber } from '@/lib/format'
@@ -72,6 +76,19 @@ export function AccountDetailHeader({ account }: AccountDetailHeaderProps) {
             </dd>
           </div>
         </dl>
+
+        <Button
+          asChild
+          variant="brand"
+          size="lg"
+          className="mt-7"
+          data-testid="detail-transfer-link"
+        >
+          <Link to={transferPath(account.id)}>
+            Transfer from this account
+            <ArrowRightIcon aria-hidden="true" />
+          </Link>
+        </Button>
       </div>
 
       <div className="mx-auto hidden w-full max-w-xs sm:block" aria-hidden="true">

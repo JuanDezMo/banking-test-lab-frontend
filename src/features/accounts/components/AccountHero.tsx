@@ -5,7 +5,7 @@ import { CopyButton } from '@/components/shared/CopyButton'
 import { MoneyText } from '@/components/shared/MoneyText'
 import { VirtualCard } from '@/components/shared/VirtualCard'
 import { limits } from '@/config/limits'
-import { accountPath } from '@/config/routes'
+import { accountPath, transferPath } from '@/config/routes'
 import { formatAccountNumber } from '@/lib/format'
 import { cn } from '@/lib/utils'
 import { availableBalance } from '../balance'
@@ -178,9 +178,8 @@ export function AccountHero({ accounts, selected, onSelect }: AccountHeroProps) 
             label="Transfer"
             icon={<ArrowRightIcon />}
             primary
-            disabled
-            title="Transfers arrive in a next version"
-            testId="hero-transfer-button"
+            to={transferPath(selected.id)}
+            testId="hero-transfer-link"
           />
           <CreateAccountDialog
             onCreated={onSelect}

@@ -1,6 +1,7 @@
 import {
   HomeIcon,
   LandmarkIcon,
+  ArrowLeftRightIcon,
   LogInIcon,
   UserPlusIcon,
   WalletCardsIcon,
@@ -26,6 +27,7 @@ const guestItems: NavItem[] = [
 
 const customerItems: NavItem[] = [
   { label: 'Accounts', to: routes.accounts, icon: WalletCardsIcon, testId: 'nav-accounts' },
+  { label: 'Transfer', to: routes.transfer, icon: ArrowLeftRightIcon, testId: 'nav-transfer' },
 ]
 
 const operatorItems: NavItem[] = [

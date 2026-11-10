@@ -5,6 +5,7 @@ export const routes = {
   register: '/register',
   accounts: '/accounts',
   accountDetail: '/accounts/:id',
+  transfer: '/transfer',
   operator: '/operator',
 } as const
 
@@ -12,6 +13,11 @@ export const routes = {
 export function accountPath(id: string, page?: number): string {
   const path = `/accounts/${encodeURIComponent(id)}`
   return page && page > 1 ? `${path}?page=${page}` : path
+}
+
+// Ruta de nueva transferencia, opcionalmente con la cuenta origen preseleccionada
+export function transferPath(fromAccountId?: string): string {
+  return fromAccountId ? `/transfer?from=${encodeURIComponent(fromAccountId)}` : '/transfer'
 }
 
 // Página de inicio de cada rol después de iniciar sesión

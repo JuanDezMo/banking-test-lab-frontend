@@ -14,10 +14,14 @@ export type FieldError = {
   message: string
 }
 
-// Si el error corresponde a un campo de formulario, devuelve el campo y el mensaje
-export function getFieldError(error: unknown): FieldError | null {
+// Si el error corresponde a un campo de formulario, devuelve el campo y el mensaje.
+// Cada formulario puede pasar su propio mapa (el mismo mensaje puede ir a campos distintos).
+export function getFieldError(
+  error: unknown,
+  map: Record<string, string> = fieldByMessage,
+): FieldError | null {
   if (!isApiError(error) || error.code !== 'BAD_REQUEST') return null
-  const field = fieldByMessage[error.message]
+  const field = map[error.message]
   return field ? { field, message: error.message } : null
 }
 
