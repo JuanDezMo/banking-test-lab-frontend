@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router'
 import { BrandLogo } from '@/components/shared/BrandLogo'
 import { TestEnvBadge } from '@/components/shared/TestEnvBadge'
+import { ThemeToggle } from '@/components/shared/ThemeToggle'
 import { cn } from '@/lib/utils'
 import { selectUser, useAuthStore } from '@/store/authStore'
 import { getNavItems } from './navigation'
@@ -44,7 +45,10 @@ export function AppLayout() {
           </ul>
         </nav>
         <div className="mt-auto grid min-w-0 gap-3">
-          <TestEnvBadge className="justify-self-start" />
+          <div className="flex items-center justify-between gap-2">
+            <TestEnvBadge />
+            <ThemeToggle />
+          </div>
           {user && <UserMenu user={user} />}
         </div>
       </aside>
@@ -58,6 +62,7 @@ export function AppLayout() {
           <BrandLogo showName={false} />
           <div className="flex items-center gap-2">
             <TestEnvBadge />
+            <ThemeToggle />
             {user && <UserMenu user={user} compact />}
           </div>
         </header>

@@ -4,6 +4,7 @@ import { AccountDetailPage } from '@/pages/AccountDetailPage'
 import { AccountsPage } from '@/pages/AccountsPage'
 import { HomePage } from '@/pages/HomePage'
 import { LoginPage } from '@/pages/LoginPage'
+import { NotFoundPage } from '@/pages/NotFoundPage'
 import { OperatorPage } from '@/pages/OperatorPage'
 import { RegisterPage } from '@/pages/RegisterPage'
 import { TransferPage } from '@/pages/TransferPage'
@@ -36,6 +37,8 @@ export const router = createBrowserRouter([
           { path: routes.operatorAccount, element: <AccountDetailPage view="operator" /> },
         ],
       },
+      // Cualquier otra ruta: 404 (sin guarda, visible con o sin sesión)
+      { path: '*', element: <NotFoundPage /> },
     ],
   },
   {

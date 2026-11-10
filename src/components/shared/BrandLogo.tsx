@@ -33,11 +33,11 @@ export function BrandLogo({
         aria-label="Banking Test Lab logo"
       >
         <title>Banking Test Lab logo</title>
-        <rect width="32" height="32" rx="10" fill={isInverse ? '#ffffff' : 'var(--inverse)'} />
+        <rect width="32" height="32" rx="10" fill={isInverse ? '#ffffff' : 'var(--logo-bg)'} />
         <path
           d="M10 22V10h6.5a3 3 0 0 1 0 6H10m6.5 0H18a3 3 0 0 1 0 6h-8"
           fill="none"
-          stroke={isInverse ? '#121216' : '#ffffff'}
+          stroke={isInverse ? '#121216' : 'var(--logo-fg)'}
           strokeWidth="2.5"
           strokeLinejoin="round"
         />

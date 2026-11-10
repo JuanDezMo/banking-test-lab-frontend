@@ -1,6 +1,7 @@
 import { Link, Outlet } from 'react-router'
 import { BrandLogo } from '@/components/shared/BrandLogo'
 import { TestEnvBadge } from '@/components/shared/TestEnvBadge'
+import { ThemeToggle } from '@/components/shared/ThemeToggle'
 import { VirtualCard } from '@/components/shared/VirtualCard'
 import { routes } from '@/config/routes'
 
@@ -18,7 +19,10 @@ export function AuthLayout() {
           <Link to={routes.home} aria-label="Go to home">
             <BrandLogo tone="inverse" />
           </Link>
-          <TestEnvBadge tone="inverse" />
+          <div className="flex items-center gap-2">
+            <TestEnvBadge tone="inverse" />
+            <ThemeToggle tone="inverse" />
+          </div>
         </div>
 
         <div className="relative mx-auto h-72 w-full max-w-sm" aria-hidden="true">
@@ -48,7 +52,10 @@ export function AuthLayout() {
           <Link to={routes.home} aria-label="Go to home">
             <BrandLogo />
           </Link>
-          <TestEnvBadge />
+          <div className="flex items-center gap-2">
+            <TestEnvBadge />
+            <ThemeToggle />
+          </div>
         </div>
         <div className="flex flex-1 items-center justify-center py-10">
           <Outlet />

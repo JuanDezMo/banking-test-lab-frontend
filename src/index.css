@@ -109,6 +109,8 @@
   --inverse-raised: #1d1d24;
   --inverse-foreground: #ffffff;
   --inverse-muted: #b9b9c8;
+  --logo-bg: #121216;
+  --logo-fg: #ffffff;
 }
 
 .dark {
@@ -144,8 +146,8 @@
   --sidebar-border: #2a2a34;
   --sidebar-ring: #8b76ff;
 
-  --brand: #7a62ff;
-  --brand-strong: #8b76ff;
+  --brand: #6c52ff;
+  --brand-strong: #7a62ff;
   --brand-foreground: #ffffff;
   --coral: #ff8a6b;
   --coral-soft: #3a1d17;
@@ -156,6 +158,8 @@
   --inverse-raised: #26262f;
   --inverse-foreground: #ffffff;
   --inverse-muted: #b9b9c8;
+  --logo-bg: #f2f2f5;
+  --logo-fg: #121216;
 }
 
 @layer base {

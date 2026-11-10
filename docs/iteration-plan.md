@@ -134,10 +134,13 @@ Nueve iteraciones cortas; cada una termina con una entrega funcional que el usua
 
 ## Iteración 7: pulido
 
-- [ ] Modo claro y oscuro con toggle persistido en `uiStore`
+Hecho: modo oscuro y página 404. El resto queda pendiente por decisión del usuario.
+
+- [x] Modo claro y oscuro con selector (claro, oscuro, sistema) persistido por `next-themes` (`btl-theme`)
 - [ ] Revisión responsive en 375, 768 y 1280 px
 - [ ] Accesibilidad: labels, `aria-label` en botones de ícono, `role="alert"`, foco visible, navegación por teclado en diálogos
-- [ ] Página 404 para rutas inexistentes y `ErrorBoundary` global
+- [x] Página 404 para rutas inexistentes
+- [ ] `ErrorBoundary` global (pendiente)
 - [ ] Toast genérico para 500 y errores de red
 - [ ] Estados vacíos y de carga consistentes en todas las vistas
 - [ ] Refactor: eliminar duplicación detectada y actualizar `README.md`
